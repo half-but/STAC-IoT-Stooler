@@ -1,7 +1,9 @@
 package dirtybro.stooler.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -41,7 +43,20 @@ public class SignInActivity extends AppCompatActivity {
                 apiService.sign("signIn", idText.getText().toString(), pwText.getText().toString()).enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        Log.v("signIn", call.toString() + response.toString());
+                        Log.v("signIn", response.code() + "");
+                        if(response.code() == 200){
+                            Snackbar.make(getWindow().getDecorView().getRootView(), "로그인 성공", Snackbar.LENGTH_SHORT).show();
+                        }else if(response.code() == 400){
+                            Snackbar.make(getWindow().getDecorView().getRootView(), "로그인 실패", Snackbar.LENGTH_LONG).setAction("회원가입", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+                                    finish();
+                                }
+                            }).show();
+                        }else{
+                            Snackbar.make(getWindow().getDecorView().getRootView(), "서버 오류입니다. 잠시 후 다시 시도해 주세요", Snackbar.LENGTH_LONG).show();
+                        }
                     }
 
                     @Override

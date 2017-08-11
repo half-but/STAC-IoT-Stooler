@@ -8,7 +8,6 @@ import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -58,7 +57,7 @@ public class SearchService extends Service {
             }
         };
 
-        timer.schedule(searchAP, 3000);
+        timer.schedule(searchAP, 3000, 30 * 1000);
 
 
         return START_REDELIVER_INTENT;
@@ -77,7 +76,6 @@ public class SearchService extends Service {
                 PixelFormat.TRANSLUCENT
         );
 
-        layoutParams.gravity = Gravity.CENTER;
         LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = layoutInflater.inflate(R.layout.activity_lock,null);
         Button button = (Button)view.findViewById(R.id.exitButton);
@@ -88,6 +86,7 @@ public class SearchService extends Service {
             }
         });
         windowManager.addView(view, layoutParams);
+
     }
 
     @Override
