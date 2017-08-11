@@ -53,13 +53,26 @@ exports.signIn = (req,res) => {
     }
 
     let userUUID = uuid.v4();
-    loginModel.update({"id" : id, "password" : pw}, {$set : {"uuid" : userUUID}}, (err) => {
+    console.log(userUUID);
+    loginModel.find({"id" : id, "password" : pw}, (err, results) => {
         if(err){
-            res.sendStatus(400);
-        }else{
-            res.cookie("Set-Cookie",userUUID);
-            res.sendStatus(200);
+            throw err;
+            res.sendStatus(500);
+            return;
         }
+        if(results.length > 0){
+            loginModel.update({"id" : id, "password" : pw}, {$set : {"uuid" : userUUID}}, (err) => {
+                if(err){
+                    res.sendStatus(500);
+                }else{
+                    res.cookie("Set-Cookie",userUUID);
+                    res.sendStatus(200);
+                }
+            });
+        }else{
+            res.sendStatus(400);
+        }
+
     });
 }
 
