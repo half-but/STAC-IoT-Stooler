@@ -4,7 +4,9 @@ import android.app.Notification;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PixelFormat;
+import android.net.wifi.WifiManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import dirtybro.stooler.Action.SearchAP;
 import dirtybro.stooler.R;
 
 import static android.content.ContentValues.TAG;
@@ -50,7 +53,7 @@ public class SearchService extends Service {
         TimerTask searchAP = new TimerTask() {
             @Override
             public void run() {
-
+                startScan();
                 //ap탐색!
                 Log.d(TAG, "run: " + "searchAP");
 
@@ -65,6 +68,12 @@ public class SearchService extends Service {
 
     WindowManager windowManager;
     View view;
+
+    private void startScan(){
+        IntentFilter filter = new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        registerReceiver(new SearchAP(), filter);
+    }
 
     private void startLockScreen(){
         windowManager = (WindowManager)getSystemService(WINDOW_SERVICE);
