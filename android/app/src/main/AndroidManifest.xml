@@ -24,6 +24,11 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name=".Action.SearchAP">
+            <intent-filter android:priority="9999">
+            </intent-filter>
+        </receiver>
+
         <service android:name=".Service.SearchService"></service>
     </application>
 
