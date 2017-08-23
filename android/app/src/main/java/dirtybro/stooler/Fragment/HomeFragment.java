@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
     private class HomeListAdapter extends RecyclerView.Adapter{
 
 
-        int viewID [] = {R.layout.view_circlegraph,R.layout.view_weekcheck,R.layout.view_card};
+        int viewID [] = {R.layout.view_circlegraph,R.layout.view_card};
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,10 +62,10 @@ public class HomeFragment extends Fragment {
 
         @Override
         public int getItemViewType(int position) {
-            if(position > 1){
-                return 2;
+            if(position > 0){
+                return 1;
             }else{
-                return position;
+                return 0;
             }
         }
 

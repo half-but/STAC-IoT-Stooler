@@ -1,6 +1,6 @@
 package dirtybro.stooler.Action;
 
-import dirtybro.stooler.Value.ColorData;
+import dirtybro.stooler.Model.ColorData;
 
 /**
  * Created by root1 on 2017. 8. 12..

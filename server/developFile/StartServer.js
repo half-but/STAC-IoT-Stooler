@@ -35,7 +35,7 @@ router.route("/getCalendarData").get(stoolData.getCalendatData);
 app.use("/",router);
 
 
-app.listen(3000,() => {
+app.listen(9024,() => {
     console.log("Stooler Server Service Start");
     databaseBoot.connectDB();
     sign.createModel();

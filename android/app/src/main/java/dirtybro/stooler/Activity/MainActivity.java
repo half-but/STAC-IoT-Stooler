@@ -1,97 +1,85 @@
 package dirtybro.stooler.Activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import dirtybro.stooler.Fragment.CalendarFragment;
-import dirtybro.stooler.Fragment.HomeFragment;
+import dirtybro.stooler.Adapter.MainPagerAdapter;
 import dirtybro.stooler.R;
-import dirtybro.stooler.Service.SearchService;
+import dirtybro.stooler.Util.BaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    TabShape tab_shape_array[];
 
-    private ViewPager mViewPager;
+    ViewPager view_pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        view_pager = (ViewPager)findViewById(R.id.view_pager);
+        TabShape issue_tab_shape = new TabShape((LinearLayout)findViewById(R.id.issue_layout), (TextView)findViewById(R.id.issue_text), findViewById(R.id.issue_check_view),0);
+        TabShape calendar_tab_shape = new TabShape((LinearLayout)findViewById(R.id.calendar_layout), (TextView)findViewById(R.id.calendar_text), findViewById(R.id.calendar_check_view),1);
+        TabShape setting_tab_shape = new TabShape((LinearLayout)findViewById(R.id.setting_layout), (TextView)findViewById(R.id.setting_text), findViewById(R.id.setting_check_view),2);
 
+        tab_shape_array = new TabShape[]{issue_tab_shape, calendar_tab_shape, setting_tab_shape};
 
-        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        view_pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager()));
+        view_pager.addOnPageChangeListener(this);
 
-        final int unSelectIconArray [] = {R.drawable.homeblack,R.drawable.calender,R.drawable.setting};
-        final int selectIconArray [] = {R.drawable.homewhite,R.drawable.calenderwhite,R.drawable.settingwhite};
-
-        for(int i = 0; i<tabLayout.getTabCount();i++){
-            tabLayout.getTabAt(i).setIcon(unSelectIconArray[i]);
-        }
-
-        tabLayout.getTabAt(0).setIcon(R.drawable.homewhite);
-
-        tabLayout.setSelectedTabIndicatorColor(Color.WHITE);
-        tabLayout.setBackgroundColor(Color.LTGRAY);
-
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                tab.setIcon(selectIconArray[tab.getPosition()]);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                tab.setIcon(unSelectIconArray[tab.getPosition()]);
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
+        setSelectButtonStyle(issue_tab_shape);
     }
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
+    private void setSelectButtonStyle(TabShape tabShape){
+        for(TabShape tab_shape : tab_shape_array){
+            tab_shape.textView.setTextColor(Color.BLACK);
+            tab_shape.view.setVisibility(View.INVISIBLE);
         }
 
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            if (position == 1){
-                return new CalendarFragment();
-            }
-            return new HomeFragment();
-        }
+        tabShape.textView.setTextColor(Color.BLUE);
+        tabShape.view.setVisibility(View.VISIBLE);
 
-        @Override
-        public int getCount() {
-            return 3;
-        }
+        view_pager.setCurrentItem(tabShape.position);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        startService(new Intent(this, SearchService.class));
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        setSelectButtonStyle(tab_shape_array[position]);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    private class TabShape {
+        LinearLayout layout;
+        TextView textView;
+        View view;
+        int position;
+
+        public TabShape(LinearLayout layout, TextView textView, View view, int position) {
+            this.layout = layout;
+            this.textView = textView;
+            this.view = view;
+            this.position = position;
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setSelectButtonStyle(TabShape.this);
+                }
+            });
+        }
     }
 }
 
