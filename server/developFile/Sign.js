@@ -28,6 +28,7 @@ exports.signUp = (req,res) => {
     }
 
     let userUUID = uuid.v4();
+    console.log(userUUID);
 
     let user = new loginModel({"id" : id,"password" : pw,"uuid" : userUUID});
 
@@ -47,19 +48,24 @@ exports.signIn = (req,res) => {
     let id = req.body.id||req.query.id;
     let pw = req.body.pw||req.query.pw;
 
+    console.log(id, pw, "님의 로그인");
+
     if(!id || !pw){
         res.sendStatus(400);
         return;
     }
 
     let userUUID = uuid.v4();
+
     console.log(userUUID);
+
     loginModel.find({"id" : id, "password" : pw}, (err, results) => {
         if(err){
             throw err;
             res.sendStatus(500);
             return;
         }
+
         if(results.length > 0){
             loginModel.update({"id" : id, "password" : pw}, {$set : {"uuid" : userUUID}}, (err) => {
                 if(err){

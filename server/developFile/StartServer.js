@@ -15,11 +15,13 @@ app.use(bodyParser.urlencoded({ extended : false}));
 app.use(cookieParser());
 
 //임베디드 전용 - 커버에 앉았을 때
-router.route("/seatCover").get(connect.seatCover);
+router.route("/seatCover").post(connect.seatCover);
 //모바일 클라이언트 - AP를 탐색 하였을 때
-router.route("/findAP").get(connect.findAP);
+router.route("/findAP").post(connect.findAP);
 //임베디드 전용 - 커버에서 데이터 받아 저장
-router.route("/saveData").get(connect.saveData);
+router.route("/saveData").post(connect.saveData);
+//임베디드 전용 - 모바일 클라이언트와 커버가 연결 되어 있는지 확인 (진동을 줄지 안 줄지)
+router.route
 
 //회원가입
 router.route("/signUp").post(sign.signUp);
