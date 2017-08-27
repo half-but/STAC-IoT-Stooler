@@ -4,8 +4,10 @@ let connect = require("./Connect");
 let connectModel = connect.connectModel;
 
 function seatCover(req, res) {
-    let ssid = req.body.ssid;
-    let date = req.body.date;
+    let ssid = req.query.ssid;
+    let date = req.query.date;
+
+    console.log("seat cover", ssid, date);
 
     let data = new connectModel({"ssid" : ssid, "date" : date, "time" : "", "color" : "", "id" : id});
 
@@ -22,5 +24,11 @@ function seatCover(req, res) {
 } 
 
 function saveData(req, res) {
+    let ssid = req.query.ssid;
+    let date = req.query.date;
+    let color = req.query.color;
+    let time = req.query.time;
+
+
 
 }
