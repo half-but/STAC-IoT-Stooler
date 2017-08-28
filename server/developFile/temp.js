@@ -8,3 +8,9 @@ let temp = "12:30:12";
 let temp1 = "2000-02-13 ";
 let date = new Date(temp1 + temp);
 console.log(date);
+
+if(""){
+    console.log("hello");
+}else{
+    console.log("hello fail");
+}

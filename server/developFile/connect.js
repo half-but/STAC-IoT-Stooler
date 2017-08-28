@@ -22,7 +22,7 @@ function delectOldData() {
     let today = new Date();
     today.setDate(today.getDate() - 7);
     console.log(today, "delect Data");
-    
+
     connectModel.find({}, (err, results) => {
         for (let i = 0; i < results.length; i++) {
             if (new Date(results[i].date) <= today) {
@@ -123,87 +123,5 @@ function compareDate(userDate, databaseDate) {
 }
 
 exports.connectCheckCover = (req, res) => {
-    let coverSSID = req.query.coverSSID;
-    let date = req.query.date;
-
-    if (!isDate(date)) {
-        res.sendStatus(400);
-        return;
-    }
-
-    connectModel.find({ "ssid": coverSSID, "date": date }, (err, results) => {
-        if (err) {
-            res.sendStatus(500);
-            throw err;
-        }
-
-        if (results.length > 0) {
-            if (results[0].id == "") {
-                res.sendStatus(400);
-            } else {
-                res.sendStatus(200);
-            }
-        } else {
-            res.sendStatus(400);
-        }
-    });
-}
-
-exports.connectCheckClient = (req, res) => {
-    let userUUID = req.cookies["Set-Cookie"];
-    let date = req.query.date;
-
-    if (!isDate(date)) {
-        res.sendStatus(400);
-        return;
-    }
-
-    sign.getID(userUUID, (userID) => {
-
-    });
-}
-
-exports.saveData = (req, res) => {
-    let color = req.query.color;
-    let time = req.query.time;
-    let date = req.query.date;
-    let coverSSID = req.query.coverSSID;
-
-    if (!isDate(date)) {
-        res.sendStatus(400);
-        return;
-    }
-
-    console.log(color, time, date, coverSSID);
-
-    connectModel.find({ "ssid": coverSSID, "date": date }, (err, results) => {
-        if (err) {
-            res.sendStatus(500);
-            throw err;
-        }
-
-        console.log(results);
-
-        if (results.length > 0) {
-            if (results[0].id) {
-                stoolData.saveData(results[0].id, date, color, time, res);
-                connectModel.remove({ "ssid": coverSSID, "date": date }, err => {
-                    if (err) {
-                        throw err;
-                    }
-                });
-                res.sendStatus(200);
-            } else {
-                connectModel.update({ "ssid": coverSSID, "date": date }, { "color": color, "time": time }, err => {
-                    if (err) {
-                        res.sendStatus(500);
-                        throw err;
-                    }
-                    res.sendStatus(200);
-                });
-            }
-        } else {
-            res.sendStatus(400);
-        }
-    });
+    dateCheck(req, res, cover.saveData);
 }
