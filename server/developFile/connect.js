@@ -56,6 +56,18 @@ exports.seatCover = (req, res) => {
     dateCheck(req, res);
 }
 
+//para : ssid, date
+//200, 400, 500
+exports.connectCheckForCover = (req, res) => {
+    dateCheck(req, res, cover.connectCheckCover);
+}
+
+//para : ssid, date, color, time
+//200, 400, 500
+exports.saveData = (req, res) => {
+    dateCheck(req, res, cover.saveData);
+}
+
 //para : seatSSID, userUUID
 
 
@@ -120,8 +132,4 @@ function compareDate(userDate, databaseDate) {
         }
     }
     return false;
-}
-
-exports.connectCheckCover = (req, res) => {
-    dateCheck(req, res, cover.saveData);
 }
