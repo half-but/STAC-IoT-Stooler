@@ -77,11 +77,14 @@ function connectCheckForCover(req, res) {
             res.sendStatus(500);
             throw err;
         }
-
         if(result.length > 0){
-
+            if(result[0].id){
+                res.sendStatus(200);
+            }else{
+                res.sendStatus(400);
+            }
         }else{
-            
+            res.sendStatus(400);
         }
     });
 }
