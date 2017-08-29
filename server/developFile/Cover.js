@@ -44,6 +44,7 @@ function saveData(req, res) {
             console.log("find result id", id);
 
             if (results[0].id) {
+                console.log("save data", results[0].id, date, color, time, res);
                 stoolData.saveData(results[0].id, date, color, time, res);
                 connectModel.remove({ "ssid": coverSSID, "date": date }, err => {
                     if (err) {
@@ -52,6 +53,7 @@ function saveData(req, res) {
                 });
                 res.sendStatus(200);
             } else {
+                console.log("update data");
                 connectModel.update({"ssid": coverSSID, "date": date }, { "color": color, "time": time }, err => {
                     if (err) {
                         res.sendStatus(500);

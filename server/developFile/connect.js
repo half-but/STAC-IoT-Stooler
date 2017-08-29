@@ -1,7 +1,7 @@
 let mongoose = require("mongoose");
 let stoolData = require("./StoolData");
-let cover = require("./Connect/Cover");
-let mobile = require("./Connect/Mobile");
+let cover = require("./Cover");
+let mobile = require("./Mobile");
 
 let connectModel;
 
@@ -72,4 +72,8 @@ exports.saveData = (req, res) => {
 
 exports.findAP = (req, res) => {
     dateCheck(req, res, mobile.findAP);
+}
+
+exports.connectCheckForMobile = (req, res) => {
+    dateCheck(req, res, mobile.connectCheckForMobile);
 }

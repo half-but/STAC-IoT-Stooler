@@ -23,6 +23,7 @@ exports.signUp = (req,res) => {
     console.log(id, pw, "님의 회원가입");
 
     if(!id || !pw){
+        console.log("id, pw 입력 오류");
         res.sendStatus(400);
         return;
     }
@@ -34,8 +35,10 @@ exports.signUp = (req,res) => {
 
     user.save(err => {
         if(err){
+            console.log("회원가입 데이터 중복")
             res.sendStatus(400);
         }else{
+            console.log("회원가입 성공");
             res.cookie("Set-Cookie",userUUID);
             res.sendStatus(200);
         }
@@ -51,6 +54,7 @@ exports.signIn = (req,res) => {
     console.log(id, pw, "님의 로그인");
 
     if(!id || !pw){
+        console.log("id, pw 입력 오류");
         res.sendStatus(400);
         return;
     }
@@ -61,21 +65,23 @@ exports.signIn = (req,res) => {
 
     loginModel.find({"id" : id, "password" : pw}, (err, results) => {
         if(err){
-            throw err;
             res.sendStatus(500);
-            return;
+            throw err;
         }
 
         if(results.length > 0){
             loginModel.update({"id" : id, "password" : pw}, {$set : {"uuid" : userUUID}}, (err) => {
                 if(err){
                     res.sendStatus(500);
+                    throw err;
                 }else{
+                    console.log("로그인 성공");
                     res.cookie("Set-Cookie",userUUID);
                     res.sendStatus(200);
                 }
             });
         }else{
+            console.log("로그인 실패");
             res.sendStatus(400);
         }
 
