@@ -1,6 +1,5 @@
 let mongoose = require("mongoose");
 let stoolData = require("./StoolData");
-let sign = require("./Sign");
 let cover = require("./Connect/Cover");
 let mobile = require("./Connect/Mobile");
 
@@ -72,64 +71,5 @@ exports.saveData = (req, res) => {
 
 
 exports.findAP = (req, res) => {
-    let coverSSID = req.query.coverSSID;
-    let date = req.query.date;
-    let userUUID = req.cookies["Set-Cookie"];
-
-    console.log(date);
-    sign.getID(userUUID, (userID) => {
-        console.log(userID);
-        if (userID == null) {
-            res.sendStatus(400);
-            return;
-        }
-
-        connectModel.find({ "ssid": coverSSID }, (err, results) => {
-            if (err) {
-                res.sendStatus(500);
-                throw err;
-            }
-            if (results.length > 0) {
-                saveUserData(results, date, res, userID);
-            } else {
-                res.sendStatus(400);
-            }
-        });
-    });
-}
-
-function saveUserData(results, date, res, userID) {
-    for (let i = 0; i < results.length; i++) {
-        console.log(compareDate(new Date(date), new Date(results[i].date)));
-        if (compareDate(new Date(date), new Date(results[i].date))) {
-            console.log(results[i].time);
-            if (results[i].time) {
-                stoolData.saveData(userID, results[i].date, results[i].color, results[i].time, res);
-                connectModel.remove({ "ssid": results[i].ssid, "date": results[i].date }, err => {
-                    if (err) {
-                        throw err;
-                    }
-                });
-            } else {
-                connectModel.update({ "ssid": results[i].ssid, "date": results[i].date }, { $set: { "id": userID } }, (err) => {
-                    if (err) {
-                        throw err;
-                    }
-                });
-            }
-            res.sendStatus(200);
-            return;
-        }
-    }
-    res.sendStatus(400);
-}
-
-function compareDate(userDate, databaseDate) {
-    if (databaseDate <= userDate) {
-        databaseDate.setSeconds(databaseDate.getSeconds() + 30);
-        if (databaseDate >= userDate) {
-            return true;
-        }
-    }
-    return false;
+    dateCheck(req, res, mobile.findAP);
 }

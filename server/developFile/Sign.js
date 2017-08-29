@@ -82,10 +82,6 @@ exports.signIn = (req,res) => {
     });
 }
 
-
-
-
-
 exports.getID = (userUUID, callback) => {
     loginModel.find({"uuid" : userUUID}, (err, results) => {
         if(err){
