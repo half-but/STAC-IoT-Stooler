@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/sign_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7">
+
+        <TextView
+            android:textColor="#ffffff"
+            android:layout_marginBottom="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="대변인"
+            android:layout_gravity="center"
+            android:textSize="42dp"/>
+        <TextView
+            android:textColor="#ffffff"
+            android:layout_marginBottom="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:layout_gravity="center"
+            android:text="대변인은 나의 배변습관을 알아서 관리합니다."/>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:background="@drawable/sign_image_shape"
+                android:scaleType="center"
+                android:src="@drawable/sign_id_icon"
+                android:layout_width="64dp"
+                android:layout_height="48dp" />
+
+            <EditText
+                android:background="@drawable/sign_edittext_shape"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:background="@drawable/sign_image_shape"
+                android:scaleType="center"
+                android:src="@drawable/sign_pw_icon"
+                android:layout_width="64dp"
+                android:layout_height="48dp" />
+
+            <EditText
+                android:background="@drawable/sign_edittext_shape"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="right"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:buttonTint="#aa000000"
+                android:checked="true"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textColor="#ffffff"
+                android:layout_marginRight="32dp"
+                android:textStyle="bold"
+                android:text="자동 로그인"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="top"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="5">
+
+        <Button
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="로그인"
+            android:textColor="#04e632"
+            android:textStyle="bold"
+            android:background="@drawable/sign_select_button_shape"
+            android:textSize="20dp" />
+
+        <LinearLayout
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <View
+                android:background="#ffffff"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OR"/>
+            <View
+                android:background="#ffffff"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <Button
+            android:text="회원가입"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/sign_unselect_button_shape"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

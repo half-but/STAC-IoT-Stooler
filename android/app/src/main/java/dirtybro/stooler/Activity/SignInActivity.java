@@ -26,7 +26,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin);
+        setContentView(R.layout.activity_sign);
 
         final EditText idText = (EditText)findViewById(R.id.idText);
         final EditText pwText = (EditText)findViewById(R.id.passwordText);
