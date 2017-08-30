@@ -1,6 +1,5 @@
 package dirtybro.stooler.Fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,9 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import org.eazegraph.lib.charts.PieChart;
-import org.eazegraph.lib.models.PieModel;
 
 import dirtybro.stooler.R;
 
@@ -76,13 +72,13 @@ public class HomeFragment extends Fragment {
             public MyViewHolder(View itemView,int viewType) {
                 super(itemView);
                 if(viewType == 0){
-                    PieChart pieChart = (PieChart)itemView.findViewById(R.id.circlegraph);
-                    pieChart.addPieSlice(new PieModel("Freetime", 15, Color.parseColor("#FE6DA8")));
-                    pieChart.addPieSlice(new PieModel("Sleep", 15, Color.parseColor("#56B7F1")));
-                    pieChart.addPieSlice(new PieModel("Work", 15, Color.parseColor("#CDA67F")));
-                    pieChart.addPieSlice(new PieModel("Eating", 19, Color.parseColor("#FED70E")));
-                    pieChart.setAnimationTime(500);
-                    pieChart.startAnimation();
+                    //PieChart pieChart = (PieChart)itemView.findViewById(R.id.circlegraph);
+                    //pieChart.addPieSlice(new PieModel("Freetime", 15, Color.parseColor("#FE6DA8")));
+                    //pieChart.addPieSlice(new PieModel("Sleep", 15, Color.parseColor("#56B7F1")));
+                    //pieChart.addPieSlice(new PieModel("Work", 15, Color.parseColor("#CDA67F")));
+                    //pieChart.addPieSlice(new PieModel("Eating", 19, Color.parseColor("#FED70E")));
+                    //pieChart.setAnimationTime(500);
+                    //pieChart.startAnimation();
                 }
                 view = itemView;
             }

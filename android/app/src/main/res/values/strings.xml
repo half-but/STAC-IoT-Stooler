@@ -2,5 +2,5 @@
     <string name="app_name">Stooler</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="APIURL">http://localhost:3000/</string>
+    <string name="APIURL">http://192.168.1.47:9024</string>
 </resources>

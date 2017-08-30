@@ -22,6 +22,7 @@
             android:text="대변인"
             android:layout_gravity="center"
             android:textSize="42dp"/>
+
         <TextView
             android:textColor="#ffffff"
             android:layout_marginBottom="32dp"
@@ -32,7 +33,7 @@
             android:text="대변인은 나의 배변습관을 알아서 관리합니다."/>
 
         <LinearLayout
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="6dp"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_marginLeft="32dp"
@@ -47,6 +48,11 @@
                 android:layout_height="48dp" />
 
             <EditText
+                android:id="@+id/idEditText"
+                android:textColor="#ffffff"
+                android:hint="ID를 입력하세요"
+                android:textColorHint="#66ffffff"
+                android:paddingLeft="4dp"
                 android:background="@drawable/sign_edittext_shape"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -54,6 +60,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="6dp"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_marginLeft="32dp"
@@ -68,6 +75,12 @@
                 android:layout_height="48dp" />
 
             <EditText
+                android:id="@+id/pwEditText"
+                android:hint="PW를 입력하세요"
+                android:textColorHint="#66ffffff"
+                android:textColor="#ffffff"
+                android:inputType="textPassword"
+                android:paddingLeft="4dp"
                 android:background="@drawable/sign_edittext_shape"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -84,6 +97,7 @@
             <CheckBox
                 android:buttonTint="#aa000000"
                 android:checked="true"
+                android:id="@+id/autoLoginCheck"
                 android:background="@android:color/transparent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -105,12 +119,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="5">
+        android:layout_weight="4">
 
         <Button
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
-            android:id="@+id/button"
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="로그인"
@@ -148,6 +162,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/registerButton"
             android:text="회원가입"
             android:textStyle="bold"
             android:textSize="20dp"
