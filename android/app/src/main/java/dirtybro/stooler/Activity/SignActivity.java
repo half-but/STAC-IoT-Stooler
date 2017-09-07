@@ -46,7 +46,9 @@ public class SignActivity extends BaseActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(!idEditText.getText().toString().isEmpty() && !pwEditText.getText().toString().isEmpty()){
+                    sign("signUp", idEditText.getText().toString(), pwEditText.getText().toString());
+                }
             }
         });
     }
@@ -58,15 +60,20 @@ public class SignActivity extends BaseActivity {
         editer.commit();
     }
 
-    private void sign(String sign, String id, String pw){
+    private void sign(final String sign, String id, String pw){
         RetrofitClass.getInstance().apiInterface.sign(sign, id, pw).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 switch (response.code()){
-                    case 200 : showToast("로그인 성공");
+                    case 200 : showToast("대변인에 오신것을 환영합니다.");
                         setCookie(response.headers().get("Set-Cookie"));
                         break;
-                    case 400 : showToast("로그인 실패");
+                    case 400 :
+                        if(sign.equals("signUp")){
+                            showToast("중복된 아이디가 존재합니다.");
+                        }else{
+                            showToast("로그인을 실패하셨습니다.");
+                        }
                         break;
                     case 500 : showToast("서버 오류");
                         break;

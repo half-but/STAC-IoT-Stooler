@@ -6,170 +6,176 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:gravity="center"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7">
+        android:layout_weight="7"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
-            android:textColor="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="대변인"
-            android:layout_gravity="center"
-            android:textSize="42dp"/>
+            android:textColor="#ffffff"
+            android:textSize="42dp" />
 
         <TextView
-            android:textColor="#ffffff"
-            android:layout_marginBottom="32dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
             android:layout_gravity="center"
-            android:text="대변인은 나의 배변습관을 알아서 관리합니다."/>
+            android:layout_marginBottom="32dp"
+            android:text="대변인은 배변습관을 알아서 관리합니다"
+            android:textColor="#bbffffff"
+            android:textSize="16dp" />
 
         <LinearLayout
-            android:layout_marginBottom="6dp"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal">
 
             <ImageView
+                android:layout_width="64dp"
+                android:layout_height="48dp"
                 android:background="@drawable/sign_image_shape"
                 android:scaleType="center"
-                android:src="@drawable/sign_id_icon"
-                android:layout_width="64dp"
-                android:layout_height="48dp" />
+                android:src="@drawable/sign_id_icon" />
 
             <EditText
                 android:id="@+id/idEditText"
-                android:textColor="#ffffff"
-                android:hint="ID를 입력하세요"
-                android:textColorHint="#66ffffff"
-                android:paddingLeft="4dp"
-                android:background="@drawable/sign_edittext_shape"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/sign_edittext_shape"
+                android:hint="ID를 입력하세요"
+                android:paddingLeft="4dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#66ffffff" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="6dp"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
 
             <ImageView
+                android:layout_width="64dp"
+                android:layout_height="48dp"
                 android:background="@drawable/sign_image_shape"
                 android:scaleType="center"
-                android:src="@drawable/sign_pw_icon"
-                android:layout_width="64dp"
-                android:layout_height="48dp" />
+                android:src="@drawable/sign_pw_icon" />
 
             <EditText
                 android:id="@+id/pwEditText"
-                android:hint="PW를 입력하세요"
-                android:textColorHint="#66ffffff"
-                android:textColor="#ffffff"
-                android:inputType="textPassword"
-                android:paddingLeft="4dp"
-                android:background="@drawable/sign_edittext_shape"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/sign_edittext_shape"
+                android:hint="PW를 입력하세요"
+                android:inputType="textPassword"
+                android:paddingLeft="4dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#66ffffff" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="right"
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="right"
+            android:orientation="horizontal">
 
             <CheckBox
-                android:buttonTint="#aa000000"
-                android:checked="true"
                 android:id="@+id/autoLoginCheck"
-                android:background="@android:color/transparent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:buttonTint="#aa000000"
+                android:checked="true" />
 
             <TextView
-                android:textColor="#ffffff"
-                android:layout_marginRight="32dp"
-                android:textStyle="bold"
-                android:text="자동 로그인"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="32dp"
+                android:text="자동 로그인"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-        android:gravity="top"
-        android:layout_margin="18dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="4">
+        android:layout_margin="16dp"
+        android:layout_weight="4"
+        android:orientation="vertical">
 
         <Button
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="로그인"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
             android:background="@drawable/signin_button_shape"
+            android:text="로그인"
             android:textColor="#04e632"
-            android:textStyle="bold"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
             android:orientation="horizontal">
+
             <View
-                android:background="#ffffff"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="#ffffff" />
+
             <TextView
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="#ffffff"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="OR"/>
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="OR"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
             <View
-                android:background="#ffffff"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="#ffffff" />
         </LinearLayout>
 
         <Button
             android:id="@+id/registerButton"
-            android:text="회원가입"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/signup_button_shape"
             android:layout_width="match_parent"
-            android:layout_height="56dp"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/signup_button_shape"
+            android:text="회원가입"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 
