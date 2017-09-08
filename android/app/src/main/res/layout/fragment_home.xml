@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="8dp"
+        android:textSize="14dp"
+        android:fontFamily="sans-serif-smallcaps"
         android:text="2017/08/09 ~ 2017/08/12" />
 
     <LinearLayout
@@ -31,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_margin="12dp"
+                android:layout_margin="8dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -78,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_margin="12dp"
+                android:layout_margin="8dp"
                 android:orientation="horizontal">
 
                 <TextView

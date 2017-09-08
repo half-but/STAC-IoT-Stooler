@@ -37,11 +37,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     private void setSelectButtonStyle(TabShape tabShape){
         for(TabShape tab_shape : tab_shape_array){
-            tab_shape.textView.setTextColor(Color.BLACK);
+            tab_shape.textView.setTextColor(getResources().getColor(R.color.colorUnSelectText));
             tab_shape.view.setVisibility(View.INVISIBLE);
         }
 
-        tabShape.textView.setTextColor(Color.BLUE);
+        tabShape.textView.setTextColor(Color.WHITE);
         tabShape.view.setVisibility(View.VISIBLE);
 
         view_pager.setCurrentItem(tabShape.position);

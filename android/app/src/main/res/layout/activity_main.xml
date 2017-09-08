@@ -12,19 +12,21 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:gravity="center"
+        android:background="@color/colorTabBar"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="STOOLER"
-            android:textColor="#ffa700"
+            android:textColor="@color/white"
             android:textSize="25dp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:background="@color/colorTabBar"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -46,7 +48,8 @@
                 android:textStyle="bold"
                 android:text="이슈"
                 android:textSize="18dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/white"
                 android:background="@android:color/transparent"/>
 
             <View
@@ -67,14 +70,15 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@color/white"
                 android:id="@+id/calendar_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/transparent"
                 android:text="캘린더"
                 android:textSize="18dp"
-                android:layout_marginBottom="4dp"
-                android:background="@android:color/transparent"/>
+                android:textStyle="bold" />
 
             <View
                 android:id="@+id/calendar_check_view"
@@ -92,13 +96,14 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@color/white"
                 android:id="@+id/setting_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:text="설정"
                 android:textSize="18dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="2dp"
                 android:background="@android:color/transparent"/>
 
             <View
@@ -110,11 +115,6 @@
 
         </LinearLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#000000"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

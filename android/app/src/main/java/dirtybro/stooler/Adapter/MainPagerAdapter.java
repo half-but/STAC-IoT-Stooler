@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import dirtybro.stooler.Fragment.CalendarFragment;
 import dirtybro.stooler.Fragment.HomeFragment;
 
 /**
@@ -20,7 +21,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0 : return new HomeFragment();
-            case 1 : return new HomeFragment();
+            case 1 : return new CalendarFragment();
             case 2 : return new HomeFragment();
             default : return null;
         }
