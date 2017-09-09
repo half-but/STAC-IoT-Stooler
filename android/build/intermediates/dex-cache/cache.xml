@@ -3,15 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="/Users/root1/.android/build-cache/2936c92c9755d798975b81a315cc1fee09bf81fe/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="5094eccf53998e9bcacfb85f80e7607b39b093fd">
-        <dex dex="/Users/root1/Desktop/대변인/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_32f6e4e0710b0796e371881d0c940bc419638b95/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/root1/Desktop/대변인/android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
@@ -25,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
-        sha1="9209b5340182e7ee91e83845c26c314ed340dd26">
+        sha1="ac256a30f14c7006c4cd24f532d35e80c20d5c89">
         <dex dex="/Users/root1/Desktop/대변인/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_87c54e9fa667df4b15ce5248297d538817126235/classes.dex" />
     </item>
     <item

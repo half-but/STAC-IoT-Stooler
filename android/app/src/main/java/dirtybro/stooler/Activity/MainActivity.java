@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         tab_shape_array = new TabShape[]{issue_tab_shape, calendar_tab_shape, setting_tab_shape};
 
-        view_pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager()));
+        view_pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(),getPreferences().getString("cookie","")));
         view_pager.addOnPageChangeListener(this);
 
         setSelectButtonStyle(issue_tab_shape);

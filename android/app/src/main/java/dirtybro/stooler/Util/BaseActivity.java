@@ -18,6 +18,7 @@ public class BaseActivity extends AppCompatActivity {
     public void goNextActivity(Class nextClass){
         Intent intent = new Intent(this, nextClass);
         startActivity(intent);
+        finish();
     }
 
     public SharedPreferences getPreferences(){
@@ -29,7 +30,5 @@ public class BaseActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = getPreferences().edit();
         editor.putString(key, value);
     }
-
-
 
 }

@@ -3,6 +3,7 @@ package dirtybro.stooler.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,6 +22,8 @@ import retrofit2.Response;
 
 public class SignActivity extends BaseActivity {
 
+    CheckBox autoLoginCheck;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +32,7 @@ public class SignActivity extends BaseActivity {
         final EditText idEditText = (EditText)findViewById(R.id.idEditText);
         final EditText pwEditText = (EditText)findViewById(R.id.pwEditText);
 
-        CheckBox autoLoginCheck = (CheckBox)findViewById(R.id.autoLoginCheck);
+        autoLoginCheck = (CheckBox)findViewById(R.id.autoLoginCheck);
 
         Button loginButton = (Button)findViewById(R.id.loginButton);
         Button registerButton = (Button)findViewById(R.id.registerButton);
@@ -58,6 +61,7 @@ public class SignActivity extends BaseActivity {
         editer.remove("cookie");
         editer.putString("cookie", cookie);
         editer.commit();
+        Log.d("xxx", getPreferences().getString("cookie", "fail"));
     }
 
     private void sign(final String sign, String id, String pw){
@@ -67,6 +71,7 @@ public class SignActivity extends BaseActivity {
                 switch (response.code()){
                     case 200 : showToast("대변인에 오신것을 환영합니다.");
                         setCookie(response.headers().get("Set-Cookie"));
+                        goNextActivity(MainActivity.class);
                         break;
                     case 400 :
                         if(sign.equals("signUp")){

@@ -1,6 +1,6 @@
 package dirtybro.stooler.Connect;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -18,7 +18,7 @@ import retrofit2.http.Query;
 public interface ApiInterface {
 
     @GET("{getDataType}")
-    Call<JSONObject> getData(@Path("getDataType") String getDataType);
+    Call<JsonObject> getData(@Header("Set-Cookie")String cookie, @Path("getDataType") String getDataType, @Query("date")String date);
 
     @FormUrlEncoded
     @POST("{sign}")
