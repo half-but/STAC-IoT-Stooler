@@ -11,10 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import dirtybro.stooler.Activity.SignActivity;
 import dirtybro.stooler.Connect.RetrofitClass;
@@ -45,34 +50,60 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     View view;
 
-    private void setData(String startData, StoolData[] stoolDatas){
+    private void setData(String startDateStr, StoolData[] stoolDatas){
+        ArrayList<String> times = new ArrayList<>();
         for(StoolData stoolData : stoolDatas){
-            stoolData.get
+            times.add(stoolData.getTime());
         }
+
+        try {
+            setAvgTime(times);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        setAvgTurn(stoolDatas.length);
     }
 
-    private void getDataToServer(){
+    private void setAvgTurn(int turn){
+        turnCountText.setText(turn + "");
+    }
+
+    private void setAvgTime(ArrayList<String> times) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("mm:ss");
+        int sum = 0;
+        for(String time : times){
+            sum += format.parse(time).getMinutes() * 60;
+            sum += format.parse(time).getSeconds();
+        }
+        sum /= times.size();
+        timeCountMinText.setText((sum / 60) + "");
+        timeCountSecText.setText((sum % 60) + "");
+    }
+
+    public void getDataToServer(){
         RetrofitClass.getInstance().apiInterface.getData(cookie,"getWeekData","").enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 switch (response.code()){
                     case 200 :
-                        String startDate = response.body().get("date").getAsString();
+                        String startDateStr = response.body().get("date").getAsString();
                         Gson gson = new Gson();
                         JsonElement temp = response.body().get("data");
                         StoolData stoolData[] = gson.fromJson(temp, StoolData[].class);
-                        setData(startDate, stoolData);
-
+                        setData(startDateStr, stoolData);
                     case 204 :
+                        Toast.makeText(getContext(), "데이터가 없습니다.", Toast.LENGTH_SHORT).show();
                         break;
                     default:
+                        Toast.makeText(getContext(), "Server error", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
     }
@@ -99,6 +130,12 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(new HomeListAdapter());
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getDataToServer();
     }
 
     private class HomeListAdapter extends RecyclerView.Adapter{

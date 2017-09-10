@@ -14,6 +14,10 @@ import dirtybro.stooler.Fragment.HomeFragment;
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
     private String cookie;
+
+    HomeFragment homeFragment;
+    CalendarFragment calendarFragment;
+
     public MainPagerAdapter(FragmentManager fm, String cookie) {
         super(fm);
         this.cookie = cookie;

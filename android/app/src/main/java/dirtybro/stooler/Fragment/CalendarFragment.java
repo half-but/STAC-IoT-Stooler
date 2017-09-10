@@ -79,6 +79,8 @@ public class CalendarFragment extends Fragment implements CalendarView.OnDateCha
                     case 204 :
                         Log.d("xxx", "no data");
                         adapter.setStoolDatas(new StoolData[]{new StoolData()});
+                        adapter.notifyDataSetChanged();
+                        recyclerView.getAdapter().notifyDataSetChanged();
                         break;
                     default:
                         break;
@@ -96,7 +98,7 @@ public class CalendarFragment extends Fragment implements CalendarView.OnDateCha
 
         StoolData[] stoolDatas;
 
-        public void setStoolDatas(StoolData[] stoolDatas) {
+        public synchronized void setStoolDatas(StoolData[] stoolDatas) {
             this.stoolDatas = stoolDatas;
         }
 
