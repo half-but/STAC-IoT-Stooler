@@ -66,25 +66,23 @@ public class CalendarFragment extends Fragment implements CalendarView.OnDateCha
     @Override
     public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
         Log.d("xxx", "" + year + month + dayOfMonth);
-        RetrofitClass.getInstance().apiInterface.getData(cookie, "getCalendarData" ,year+"-"+month+"-"+dayOfMonth).enqueue(new Callback<JsonObject>() {
+        RetrofitClass.getInstance().apiInterface.getData(cookie, "getCalendarData" ,year+"-"+(month + 1)+"-"+dayOfMonth).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 switch (response.code()){
                     case 200 :
-                        Log.d("xxx", response.body().toString());
+                        Log.d("xxx", response.body().get("data").toString());
                         Gson gson = new Gson();
-                        StoolData stoolData[] = gson.fromJson(response.body().toString(), StoolData[].class);
+                        StoolData stoolData[] = gson.fromJson(response.body().get("data"), StoolData[].class);
                         adapter.setStoolDatas(stoolData);
                         break;
                     case 204 :
-                        Log.d("xxx", "no data");
-                        adapter.setStoolDatas(new StoolData[]{new StoolData()});
-                        adapter.notifyDataSetChanged();
-                        recyclerView.getAdapter().notifyDataSetChanged();
+                        adapter.setStoolDatas(new StoolData[]{new StoolData(), new StoolData()});
                         break;
                     default:
                         break;
                 }
+                recyclerView.getAdapter().notifyDataSetChanged();
             }
 
             @Override
@@ -104,12 +102,7 @@ public class CalendarFragment extends Fragment implements CalendarView.OnDateCha
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view;
-            if(stoolDatas == null){
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_progress, parent, false);
-            }else{
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_card, parent, false);
-            }
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_card, parent, false);
             return new MyViewHolder(view);
         }
 

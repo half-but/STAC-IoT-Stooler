@@ -42,6 +42,8 @@ public class SignActivity extends BaseActivity {
             public void onClick(View v) {
                 if(!idEditText.getText().toString().isEmpty() && !pwEditText.getText().toString().isEmpty()){
                     sign("signIn", idEditText.getText().toString(), pwEditText.getText().toString());
+                }else{
+                    showToast("아이디, 비밀번호를 입력하세요");
                 }
             }
         });
@@ -51,6 +53,8 @@ public class SignActivity extends BaseActivity {
             public void onClick(View v) {
                 if(!idEditText.getText().toString().isEmpty() && !pwEditText.getText().toString().isEmpty()){
                     sign("signUp", idEditText.getText().toString(), pwEditText.getText().toString());
+                }else{
+                    showToast("아이디, 비밀번호를 입력하세요");
                 }
             }
         });
