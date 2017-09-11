@@ -1,7 +1,7 @@
 let mongoose = require("mongoose");
 let sign = require("./Sign");
 
-let dataControlModel;
+let stoolDataModel;
 
 exports.createModel = ()=>{
     let stoolDataSchema = mongoose.Schema({
@@ -27,8 +27,12 @@ exports.saveData = (id, date, color, time) =>{
 
 //데이터 보기
 exports.getWeekData = (req, res) => {
-    let userUUID = req.cookies["Set-Cookie"];
-    sign.getID(userUUID, (userID) => {
+    
+    let cookieStr = req.headers["set-cookie"][0];
+    cookieStr = cookieStr.split(";")[0];
+    let userUUID = cookieStr.split("=")[1];
+
+    sign.getID(userUUID, (userID, date) => {
         if(!userID){
             res.sendStatus(400);
             return;
@@ -50,9 +54,9 @@ exports.getWeekData = (req, res) => {
                     }
                 }
                 console.log(dataArray);
-                res.status(200).send(JSON.stringify(dataArray));
+                res.status(200).send(JSON.stringify({"date" : date, "data" : dataArray}));
             }else{
-                res.sendStatus(400);
+                res.sendStatus(204);
             }
         });
     });
@@ -70,9 +74,13 @@ function checkWeekData(date){
     }
 }
 
-exports.getCalendatData = (req, res) => {
-    let userUUID = req.cookies["Set-Cookie"];
+exports.getCalendartData = (req, res) => {
     let selectDate = req.query.date;
+
+    let cookieStr = req.headers["set-cookie"][0];
+    cookieStr = cookieStr.split(";")[0];
+    let userUUID = cookieStr.split("=")[1];
+    
 
     sign.getID(userUUID, (userID) => {
         if(!userID){
@@ -93,10 +101,12 @@ exports.getCalendatData = (req, res) => {
                         dataArray.push({"date":results[i].date, "color":results[i].color, "time":results[i].time});
                     }
                 }
-                res.status(200).send(JSON.stringify(dataArray));
-            }else{
-                res.sendStatus(204);    
+                if(dataArray.length > 0){
+                    res.status(200).send(JSON.stringify({"data" : dataArray}));
+                    return;
+                }
             }
+            res.sendStatus(204);   
         });
         
     });

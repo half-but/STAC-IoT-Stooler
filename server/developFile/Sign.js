@@ -8,12 +8,18 @@ exports.createModel = () => {
     let LoginUserSchema = mongoose.Schema({
         id : {type : String, require : true, unique : true},
         password : {type : String, require : true},
-        uuid : {type : String, require : true}
+        uuid : {type : String, require : true},
+        date : {type : String, require : true}
     });
 
     loginModel = mongoose.model("SignData", LoginUserSchema);
 }
 
+function getDate(){
+    let date = new Date();
+    console.log(date);
+    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+}
 //회원가입
 //para id, pw
 exports.signUp = (req,res) => {
@@ -31,7 +37,7 @@ exports.signUp = (req,res) => {
     let userUUID = uuid.v4();
     console.log(userUUID);
 
-    let user = new loginModel({"id" : id,"password" : pw,"uuid" : userUUID});
+    let user = new loginModel({"id" : id,"password" : pw,"uuid" : userUUID, "date" : getDate()});
 
     user.save(err => {
         if(err){
@@ -39,7 +45,7 @@ exports.signUp = (req,res) => {
             res.sendStatus(400);
         }else{
             console.log("회원가입 성공");
-            res.cookie("Set-Cookie",userUUID);
+            res.cookie("cookie",userUUID);
             res.sendStatus(200);
         }
     });
@@ -76,7 +82,7 @@ exports.signIn = (req,res) => {
                     throw err;
                 }else{
                     console.log("로그인 성공");
-                    res.cookie("Set-Cookie",userUUID);
+                    res.cookie("cookie",userUUID);
                     res.sendStatus(200);
                 }
             });
@@ -94,7 +100,7 @@ exports.getID = (userUUID, callback) => {
             callback(null);
         }
         if(results.length > 0){
-            callback(results[0].id);
+            callback(results[0].id, results[0].date);
         }else{
             callback(null);
         }

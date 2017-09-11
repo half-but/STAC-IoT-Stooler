@@ -22,7 +22,7 @@ router.route("/saveData").get(connect.saveData);
 router.route("/connectCheckForCover").get(connect.connectCheckForCover);
 
 //모바일 클라이언트 - AP를 탐색 하였을 때
-router.route("/findAP").post(connect.findAP);
+router.route("/findAP").get(connect.findAP);
 //모바일 클라이언트 - 커버랑 연결 되어 있는지 확인
 router.route("/connectCheckForMobile").get(connect.connectCheckForMobile);
 
@@ -34,7 +34,7 @@ router.route("/signIn").post(sign.signIn);
 //최근 데이터
 router.route("/getWeekData").get(stoolData.getWeekData);
 //캘린더 데이터
-router.route("/getCalendarData").get(stoolData.getCalendatData);
+router.route("/getCalendarData").get(stoolData.getCalendartData);
 
 
 app.use("/",router);
