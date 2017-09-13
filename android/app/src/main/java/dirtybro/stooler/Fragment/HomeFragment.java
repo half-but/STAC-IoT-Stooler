@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getContext(), "데이터가 없습니다.", Toast.LENGTH_SHORT).show();
                         break;
                     default:
-                        Toast.makeText(getContext(), "Server error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "서버 오류", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -104,6 +104,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 t.printStackTrace();
+                Toast.makeText(getContext(), "서버 오류", Toast.LENGTH_SHORT);
             }
         });
     }

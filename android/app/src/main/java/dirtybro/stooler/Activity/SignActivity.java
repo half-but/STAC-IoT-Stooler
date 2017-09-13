@@ -84,16 +84,13 @@ public class SignActivity extends BaseActivity {
                             showToast("로그인을 실패하셨습니다.");
                         }
                         break;
-                    case 500 : showToast("서버 오류");
-                        break;
-                    default : showToast("error");
-                        break;
+                    default: showToast("서버 오류");
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                showToast(t.getMessage());
+                showToast("서버 오류");
                 t.printStackTrace();
             }
         });
