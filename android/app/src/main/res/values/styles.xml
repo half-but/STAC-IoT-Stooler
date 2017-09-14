@@ -6,11 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:calendarViewStyle">@style/Custom.Calendar</item>
     </style>
-    
-    <style name="Custom.Calendar" parent="android:Widget.Material.CalendarView">
 
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/view_splash</item>
     </style>
 
     

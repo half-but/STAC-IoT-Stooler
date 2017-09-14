@@ -1,15 +1,19 @@
 package dirtybro.stooler.Fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,6 +89,7 @@ public class HomeFragment extends Fragment {
         RetrofitClass.getInstance().apiInterface.getData(cookie,"getWeekData","").enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.e(TAG, "" + response.code() );
                 switch (response.code()){
                     case 200 :
                         String startDateStr = response.body().get("date").getAsString();
@@ -92,6 +97,7 @@ public class HomeFragment extends Fragment {
                         JsonElement temp = response.body().get("data");
                         StoolData stoolData[] = gson.fromJson(temp, StoolData[].class);
                         setData(startDateStr, stoolData);
+                        break;
                     case 204 :
                         Toast.makeText(getContext(), "데이터가 없습니다.", Toast.LENGTH_SHORT).show();
                         break;
@@ -152,16 +158,20 @@ public class HomeFragment extends Fragment {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.view_card_main, parent,false);
-            TextView timeText = (TextView) view.findViewById(R.id.timeText);
-            if(colorTime != null){
-                timeText.setText(colorTime[viewType] + "");
-            }
             return new HomeListViewHolder(view, viewType);
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            HomeListViewHolder homeListHolder = (HomeListViewHolder)holder;
 
+            homeListHolder.colorTitleText.setText(colorTitleArr[position]);
+            homeListHolder.shapeIconView.setBackgroundResource(colorResouceArr[position]);
+            if(colorTime != null){
+                homeListHolder.timeText.setText(colorTime[position]+"");
+            }
+
+            Log.d(TAG, "" + position);
         }
 
         @Override
@@ -174,17 +184,40 @@ public class HomeFragment extends Fragment {
             return position;
         }
 
-        private class HomeListViewHolder extends RecyclerView.ViewHolder{
+        class HomeListViewHolder extends RecyclerView.ViewHolder{
+            TextView colorTitleText;
+            View shapeIconView;
+            ImageButton infoButton;
+            TextView timeText;
+            LinearLayout timeLayout;
+
             public HomeListViewHolder(View view, int position) {
                 super(view);
-                TextView colorTitleText;
-                View shapeIconView;
-                ImageButton infoButton = (ImageButton) view.findViewById(R.id.infoButton);
-
+                infoButton = (ImageButton) view.findViewById(R.id.infoButton);
+                infoButton.setTag(position);
+                timeText = (TextView) view.findViewById(R.id.timeText);
                 colorTitleText = (TextView) view.findViewById(R.id.colorTitleText);
                 shapeIconView = view.findViewById(R.id.shapeIconView);
-                colorTitleText.setText(colorTitleArr[position]);
-                shapeIconView.setBackgroundResource(colorResouceArr[position]);
+                timeLayout = (LinearLayout)view.findViewById(R.id.timeLayout);
+
+                infoButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setMessage("철분이 많은 음식이나 고기를 많이 섭취하였을때 발생하거나\n" +
+                                "식도, 위, 십이지장, 소장과 같은 상부위장관의 출혈에 의해 발생(강한 악취를 동반)\n" +
+                                "위염, 위궤앙, 십이지장 궤앙 등의 출혈이거나 드물게 위암에 의한 출혈때문에 발생");
+                        builder.setTitle("hello world");
+                        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                builder.create().cancel();
+                            }
+                        });
+                        builder.create().show();
+                    }
+                });
+
             }
         }
 

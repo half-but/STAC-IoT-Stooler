@@ -12,12 +12,8 @@
         android:label="대변인"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
-        <activity
-            android:name=".Activity.SplashActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+        android:theme="@style/SplashTheme">
+        <activity android:name=".Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,8 +21,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.MainActivity"/>
         <activity android:name=".Activity.SignActivity"/>
+        <activity android:name=".Activity.MainActivity"/>
 
         <receiver android:name=".Action.SearchAP">
             <intent-filter android:priority="9999">
