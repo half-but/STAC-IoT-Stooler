@@ -14,7 +14,7 @@
             android:layout_gravity="center"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:background="@drawable/main_circle_shape_green" />
+            android:background="@drawable/main_circle_shape_black" />
 
         <TextView
             android:id="@+id/colorTitleText"
@@ -47,7 +47,10 @@
 
 
         <ImageButton
+            android:src="@drawable/icon_main_info"
+            android:background="@android:color/transparent"
             android:id="@+id/infoButton"
+            android:padding="8dp"
             android:layout_marginRight="16dp"
             android:layout_gravity="center"
             android:layout_width="48dp"
@@ -55,9 +58,6 @@
             android:layout_height="48dp" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorAlphaBlack"/>
+    <View style="@style/Divider.Vertical"/>
 
 </LinearLayout>

@@ -3,138 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="230dp">
-    <LinearLayout
-        android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_margin="4dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <View
-            android:background="@color/colorAlphaBlack"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
+        android:layout_gravity="center"
+        android:text="1월 1일"/>
+    <TextView
+        android:layout_margin="4dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4시 45분 32초"/>
 
-        <View
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:background="@drawable/main_circle_shape_green"/>
+    <View style="@style/Divider.Vertical"/>
 
-        <View
-            android:background="@color/colorAlphaBlack"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
-    </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <View
-            android:layout_margin="32dp"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:background="@drawable/main_circle_shape_red"/>
+        android:layout_height="70dp">
+
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="1월 1일"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18dp"
-            android:text="23:59"/>
-        <TextView
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="시작"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_margin="16dp"/>
+            android:text="배변 색"/>
+
 
     </LinearLayout>
-    <View
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorAlphaBlack"/>
+
+    <View style="@style/Divider.Vertical"/>
+
     <LinearLayout
-        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <View
-            android:layout_margin="32dp"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:background="@drawable/main_circle_shape_red"/>
+        android:layout_height="70dp">
+
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="1월 1일"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18dp"
-            android:text="23:59"/>
-        <TextView
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="시작"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_margin="16dp"/>
+            android:text="배변 시간"/>
 
     </LinearLayout>
-    <View
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorAlphaBlack"/>
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <View
-            android:layout_margin="32dp"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:background="@drawable/main_circle_shape_red"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="1월 1일"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18dp"
-            android:text="23:59"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="시작"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_margin="32dp"/>
 
-    </LinearLayout>
+    <View style="@style/Divider.Vertical"/>
 
 </LinearLayout>

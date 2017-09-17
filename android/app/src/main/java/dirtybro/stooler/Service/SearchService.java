@@ -2,34 +2,20 @@ package dirtybro.stooler.Service;
 
 import android.app.Notification;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.PixelFormat;
 import android.net.wifi.WifiManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 import dirtybro.stooler.Action.SearchAP;
 import dirtybro.stooler.R;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by root1 on 2017. 7. 20..
  */
 
 public class SearchService extends Service {
-
-    Timer timer;
 
     @Nullable
     @Override
@@ -49,25 +35,10 @@ public class SearchService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        timer = new Timer();
-        TimerTask searchAP = new TimerTask() {
-            @Override
-            public void run() {
-                startScan();
-                //ap탐색!
-                Log.d(TAG, "run: " + "searchAP");
-
-            }
-        };
-
-        timer.schedule(searchAP, 3000, 30 * 1000);
-
+        startScan();
 
         return START_REDELIVER_INTENT;
     }
-
-    WindowManager windowManager;
-    View view;
 
     private void startScan(){
         IntentFilter filter = new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
@@ -75,32 +46,8 @@ public class SearchService extends Service {
         registerReceiver(new SearchAP(), filter);
     }
 
-    private void startLockScreen(){
-        windowManager = (WindowManager)getSystemService(WINDOW_SERVICE);
-        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-                PixelFormat.TRANSLUCENT
-        );
-
-        LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = layoutInflater.inflate(R.layout.activity_lock,null);
-        Button button = (Button)view.findViewById(R.id.exitButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                windowManager.removeView(view);
-            }
-        });
-        windowManager.addView(view, layoutParams);
-
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        timer.cancel();
     }
 }

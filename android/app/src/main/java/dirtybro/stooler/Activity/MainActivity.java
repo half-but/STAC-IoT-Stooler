@@ -1,5 +1,6 @@
 package dirtybro.stooler.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import dirtybro.stooler.Adapter.MainPagerAdapter;
 import dirtybro.stooler.R;
+import dirtybro.stooler.Service.SearchService;
 import dirtybro.stooler.Util.BaseActivity;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
@@ -30,9 +32,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         tab_shape_array = new TabShape[]{issue_tab_shape, calendar_tab_shape, setting_tab_shape};
 
         view_pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(),getPreferences().getString("cookie","")));
+        view_pager.setOffscreenPageLimit(3);
         view_pager.addOnPageChangeListener(this);
 
         setSelectButtonStyle(issue_tab_shape);
+
+        Intent intent = new Intent(this, SearchService.class);
+        startService(intent);
     }
 
     private void setSelectButtonStyle(TabShape tabShape){

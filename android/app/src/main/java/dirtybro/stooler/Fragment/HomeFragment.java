@@ -1,7 +1,9 @@
 package dirtybro.stooler.Fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,7 +27,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import dirtybro.stooler.Activity.SignActivity;
 import dirtybro.stooler.Connect.RetrofitClass;
 import dirtybro.stooler.Model.StoolData;
 import dirtybro.stooler.R;
@@ -39,6 +40,8 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
     public static String TAG = "check point";
+
+    private Context context;
 
     private String cookie;
 
@@ -110,7 +113,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(getContext(), "서버 오류", Toast.LENGTH_SHORT);
+                Toast.makeText(context, "서버 오류", Toast.LENGTH_SHORT);
             }
         });
     }
@@ -119,11 +122,13 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home,container,false);
+        Log.e(getClass().getSimpleName(), "INIT");
 
+        context = getActivity();
         if(cookie.isEmpty()){
-            Intent intent = new Intent(getContext(), SignActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+            //Intent intent = new Intent(getContext(), SignActivity.class);
+            //startActivity(intent);
+            //getActivity().finish();
         }
 
         dateText = getTextView(R.id.dateText);
@@ -147,7 +152,7 @@ public class HomeFragment extends Fragment {
 
     private class HomeListAdapter extends RecyclerView.Adapter{
 
-        private int[] colorResouceArr = new int[]{R.drawable.main_circle_shape_red, R.drawable.main_circle_shape_yellow, R.drawable.main_circle_shape_green, R.drawable.main_circle_shape_white, R.drawable.main_circle_shape_black};
+        private int[] colorResouceArr = new int[]{R.color.red, R.color.yellow, R.color.green, R.color.white, R.color.black};
         private String[] colorTitleArr = new String[]{"빨간색", "노란색", "초록색", "흰색", "검정색"};
         private int[] colorTime;
 
@@ -166,7 +171,9 @@ public class HomeFragment extends Fragment {
             HomeListViewHolder homeListHolder = (HomeListViewHolder)holder;
 
             homeListHolder.colorTitleText.setText(colorTitleArr[position]);
-            homeListHolder.shapeIconView.setBackgroundResource(colorResouceArr[position]);
+            Drawable drawable = homeListHolder.shapeIconView.getBackground();
+            drawable.setColorFilter(getResources().getColor(colorResouceArr[position]), PorterDuff.Mode.SRC_IN);
+            homeListHolder.shapeIconView.setBackground(drawable);
             if(colorTime != null){
                 homeListHolder.timeText.setText(colorTime[position]+"");
             }

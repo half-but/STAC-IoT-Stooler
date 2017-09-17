@@ -1,6 +1,5 @@
 package dirtybro.stooler.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import dirtybro.stooler.Activity.SignActivity;
 import dirtybro.stooler.Connect.RetrofitClass;
 import dirtybro.stooler.Model.StoolData;
 import dirtybro.stooler.R;
@@ -46,10 +44,12 @@ public class CalendarFragment extends Fragment implements CalendarView.OnDateCha
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar,container,false);
 
+        Log.e(getClass().getSimpleName(), "INIT");
         if(cookie.isEmpty()){
-            Intent intent = new Intent(getContext(), SignActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+            //TODO: 주석풀기
+            //Intent intent = new Intent(getContext(), SignActivity.class);
+            //startActivity(intent);
+            //getActivity().finish();
         }
 
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
