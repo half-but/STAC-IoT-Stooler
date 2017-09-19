@@ -2,6 +2,7 @@ package dirtybro.stooler.Fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import dirtybro.stooler.Activity.SignActivity;
 import dirtybro.stooler.Connect.RetrofitClass;
 import dirtybro.stooler.Model.StoolData;
 import dirtybro.stooler.R;
@@ -126,9 +128,9 @@ public class HomeFragment extends Fragment {
 
         context = getActivity();
         if(cookie.isEmpty()){
-            //Intent intent = new Intent(getContext(), SignActivity.class);
-            //startActivity(intent);
-            //getActivity().finish();
+            Intent intent = new Intent(getContext(), SignActivity.class);
+            startActivity(intent);
+            getActivity().finish();
         }
 
         dateText = getTextView(R.id.dateText);
@@ -154,6 +156,7 @@ public class HomeFragment extends Fragment {
 
         private int[] colorResouceArr = new int[]{R.color.red, R.color.yellow, R.color.green, R.color.white, R.color.black};
         private String[] colorTitleArr = new String[]{"빨간색", "노란색", "초록색", "흰색", "검정색"};
+        private int[] infoStrArr = new int[]{R.string.RED, R.string.YELLOW, R.string.GREEN, R.string.WHITE, R.string.BLACK};
         private int[] colorTime;
 
         public void setColorTime(int[] colorTime) {
@@ -198,7 +201,7 @@ public class HomeFragment extends Fragment {
             TextView timeText;
             LinearLayout timeLayout;
 
-            public HomeListViewHolder(View view, int position) {
+            public HomeListViewHolder(View view, final int position) {
                 super(view);
                 infoButton = (ImageButton) view.findViewById(R.id.infoButton);
                 infoButton.setTag(position);
@@ -211,10 +214,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setMessage("철분이 많은 음식이나 고기를 많이 섭취하였을때 발생하거나\n" +
-                                "식도, 위, 십이지장, 소장과 같은 상부위장관의 출혈에 의해 발생(강한 악취를 동반)\n" +
-                                "위염, 위궤앙, 십이지장 궤앙 등의 출혈이거나 드물게 위암에 의한 출혈때문에 발생");
-                        builder.setTitle("hello world");
+                        builder.setMessage(infoStrArr[position]);
                         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

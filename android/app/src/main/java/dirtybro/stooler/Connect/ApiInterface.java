@@ -24,7 +24,7 @@ public interface ApiInterface {
     @POST("{sign}")
     Call<Void> sign(@Path("sign") String sign, @Field("id") String id, @Field("pw") String pw);
 
-    @GET("findAP")
-    Call<Void> findAP(@Header("Set-Cookie")String cookie, @Query("ssid")String ssid, @Query("date")String date);
+    @GET("{aboutCover}")
+    Call<Void> aboutCover(@Path("aboutCover")String path, @Header("Set-Cookie")String cookie, @Query("ssid")String ssid, @Query("date")String date);
 
 }

@@ -3,7 +3,6 @@ package dirtybro.stooler.Activity;
 import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -25,16 +24,11 @@ public class SplashActivity extends BaseActivity{
 
 
         TedPermission.with(this)
-                .setDeniedMessage("Why")
+                .setDeniedMessage("대변인 커버 탐색을 위해서 권한이 필요합니다.")
                 .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
                 .setPermissionListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted() {
-                        Toast.makeText(SplashActivity.this, "Wifi승인", Toast.LENGTH_SHORT).show(); if(isFirst()){
-                            goNextActivity(SignActivity.class);
-                        }else{
-                            goNextActivity(MainActivity.class);
-                        }
                         if(isFirst()){
                             goNextActivity(SignActivity.class);
                         }else{
@@ -44,8 +38,7 @@ public class SplashActivity extends BaseActivity{
 
                     @Override
                     public void onPermissionDenied(ArrayList<String> arrayList) {
-                        Toast.makeText(SplashActivity.this, "퍼미션거부", Toast.LENGTH_SHORT).show();
-
+                        finish();
                     }
                 }).check();
 

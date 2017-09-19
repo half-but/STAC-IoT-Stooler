@@ -14,9 +14,14 @@ import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import dirtybro.stooler.Connect.RetrofitClass;
 import dirtybro.stooler.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.content.Context.WINDOW_SERVICE;
@@ -25,11 +30,9 @@ import static android.content.Context.WINDOW_SERVICE;
  * Created by root1 on 2017. 8. 12..
  */
 
-public class SearchAP extends BroadcastReceiver implements View.OnClickListener {
+public class SearchAP extends BroadcastReceiver {
 
     private WifiManager wifiManager;
-    ArrayList<String> ssidData = new ArrayList<>();
-    ArrayList<Integer> rssData = new ArrayList<>();
     String identifier = "StoolerCover";
 
     Context context;
@@ -37,8 +40,6 @@ public class SearchAP extends BroadcastReceiver implements View.OnClickListener 
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context = context;
-
-        Log.d("xxx", "hello world");
 
         wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
         wifiManager.startScan();
@@ -59,9 +60,15 @@ public class SearchAP extends BroadcastReceiver implements View.OnClickListener 
         Log.d("xxx", "getWifiResult: " + wifiManager.getScanResults().toString());
 
         for(ScanResult scanResult :  wifiManager.getScanResults()){
-            ssidData.add(scanResult.SSID);
-            rssData.add(scanResult.level * -1);
-            Log.d("xxx", scanResult.SSID + scanResult.level);
+
+            Log.d("scan data", scanResult.SSID + "/" + scanResult.level);
+            Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd tt:mm:ss");
+            String findDate = simpleDateFormat.format(date);
+            if(scanResult.SSID.contains(identifier)){
+                startLockScreen(scanResult.SSID, findDate);
+                RetrofitClass.getInstance().apiInterface.aboutCover("findAP",getCookie(),scanResult.SSID, findDate).enqueue(null);
+            }
         }
     }
 
@@ -69,10 +76,10 @@ public class SearchAP extends BroadcastReceiver implements View.OnClickListener 
     View view;
     Chronometer chronometer;
 
-    private void startLockScreen(){
-        Log.d("xxx", "nice too meet you" + isLock());
+    private void startLockScreen(final String ssid, final String date){
         if(!isLock()){
             setLock(true);
+
             windowManager = (WindowManager)context.getSystemService(WINDOW_SERVICE);
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
                     WindowManager.LayoutParams.MATCH_PARENT,
@@ -85,7 +92,24 @@ public class SearchAP extends BroadcastReceiver implements View.OnClickListener 
             LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.activity_lock,null);
             ImageButton unLockButton = (ImageButton) view.findViewById(R.id.unLockButton);
-            unLockButton.setOnClickListener(this);
+            unLockButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RetrofitClass.getInstance().apiInterface.aboutCover("connectCheckForMobile",getCookie(),ssid,date).enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.code() == 200){
+                                setLock(false);
+                                windowManager.removeView(view);
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+                }
+            });
             chronometer = (Chronometer) view.findViewById(R.id.countChronometer);
             //chronometer.setBase();
             chronometer.start();
@@ -100,10 +124,8 @@ public class SearchAP extends BroadcastReceiver implements View.OnClickListener 
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        setLock(false);
-        windowManager.removeView(view);
+    private String getCookie(){
+        return getPreferences().getString("cookie","");
     }
 
     private void setLock(boolean isLock){

@@ -36,7 +36,6 @@ public class SearchService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startScan();
-
         return START_REDELIVER_INTENT;
     }
 
