@@ -32,7 +32,7 @@ router.route("/signUp").post(sign.signUp);
 router.route("/signIn").post(sign.signIn);
 
 //최근 데이터
-router.route("/getWeekData").get(stoolData.getWeekData);
+router.route("/getIssueData").get(stoolData.getIssueData);
 //캘린더 데이터
 router.route("/getCalendarData").get(stoolData.getCalendartData);
 

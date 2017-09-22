@@ -4,7 +4,7 @@ let sign = require("./Sign");
 
 let connectModel = connect.connectModel;
 
-exports.connectCheckForMobile = (req, res) => {
+function connectCheckForMobile (req, res) {
     let date = req.query.date;
     let coverSSID = req.query.ssid;
 
@@ -25,10 +25,9 @@ exports.connectCheckForMobile = (req, res) => {
             }
         });
     });
-
 }
 
-exports.findAP = (req, res) => {
+function findAP (req, res) {
     let coverSSID = req.query.ssid;
     let date = req.query.date;
 

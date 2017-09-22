@@ -26,7 +26,7 @@ exports.saveData = (id, date, color, time) =>{
 }
 
 //데이터 보기
-exports.getWeekData = (req, res) => {
+exports.getIssueData = (req, res) => {
     
     let cookieStr = req.headers["set-cookie"][0];
     cookieStr = cookieStr.split(";")[0];
@@ -54,7 +54,7 @@ exports.getWeekData = (req, res) => {
                     }
                 }
                 console.log(dataArray);
-                res.status(200).send(JSON.stringify({"date" : date, "data" : dataArray}));
+                res.status(200).send(JSON.stringify({"signUpDate" : date, "data" : dataArray}));
             }else{
                 res.sendStatus(204);
             }
