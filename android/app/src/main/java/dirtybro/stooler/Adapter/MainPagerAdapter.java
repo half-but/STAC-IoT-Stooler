@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import dirtybro.stooler.Fragment.CalendarFragment;
 import dirtybro.stooler.Fragment.HomeFragment;
+import dirtybro.stooler.Fragment.SettingFragment;
 
 /**
  * Created by root1 on 2017. 8. 23..
@@ -28,7 +29,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0 : return new HomeFragment(cookie);
             case 1 : return new CalendarFragment(cookie);
-            case 2 : return new HomeFragment(cookie);
+            case 2 : return new SettingFragment();
             default : return null;
         }
     }

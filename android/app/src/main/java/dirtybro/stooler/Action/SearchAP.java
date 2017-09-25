@@ -14,8 +14,10 @@ import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import dirtybro.stooler.Connect.RetrofitClass;
 import dirtybro.stooler.R;
@@ -45,7 +47,6 @@ public class SearchAP extends BroadcastReceiver {
         wifiManager.startScan();
         String action = intent.getAction();
         if(action.equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)){
-            startLockScreen();
             getWifiResult();
         } else if (action.equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)){
             context.sendBroadcast(new Intent("wifi.ON_NETWORK_STATE_CHANGED"));
@@ -57,17 +58,31 @@ public class SearchAP extends BroadcastReceiver {
             wifiManager.setWifiEnabled(true);
         }
 
-        Log.d("xxx", "getWifiResult: " + wifiManager.getScanResults().toString());
+        for(final ScanResult scanResult :  wifiManager.getScanResults()){
 
-        for(ScanResult scanResult :  wifiManager.getScanResults()){
-
-            Log.d("scan data", scanResult.SSID + "/" + scanResult.level);
-            Date date = new Date(System.currentTimeMillis());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd tt:mm:ss");
-            String findDate = simpleDateFormat.format(date);
+            final Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd t:mm:ss");
+            final String findDate = simpleDateFormat.format(date);
             if(scanResult.SSID.contains(identifier)){
-                startLockScreen(scanResult.SSID, findDate);
-                RetrofitClass.getInstance().apiInterface.aboutCover("findAP",getCookie(),scanResult.SSID, findDate).enqueue(null);
+                RetrofitClass.getInstance().apiInterface.aboutCover("findAP",getCookie(),scanResult.SSID, findDate).enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.code() == 200){
+                            TimerTask timerTask = new TimerTask() {
+                                @Override
+                                public void run() {
+                                    startLockScreen(scanResult.SSID, findDate);
+                                }
+                            };
+                            new Timer().schedule(timerTask, 1000 * 60 * 5);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
             }
         }
     }

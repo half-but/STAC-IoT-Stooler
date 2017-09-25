@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
 
     TextView dateText, turnCountText, timeCountMinText, timeCountSecText, dangerGaugeText;
     RecyclerView recyclerView;
-    View view;
+    View view, greenPoint, redPoint, yellowPoint;
 
     private void setData(String startDateStr, StoolData[] stoolDatas){
         ArrayList<String> times = new ArrayList<>();
@@ -91,13 +91,13 @@ public class HomeFragment extends Fragment {
     }
 
     public void getDataToServer(){
-        RetrofitClass.getInstance().apiInterface.getData(cookie,"getWeekData","").enqueue(new Callback<JsonObject>() {
+        RetrofitClass.getInstance().apiInterface.getData(cookie,"getIssueData","").enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 Log.e(TAG, "" + response.code() );
                 switch (response.code()){
                     case 200 :
-                        String startDateStr = response.body().get("date").getAsString();
+                        String startDateStr = response.body().get("signUpDate").getAsString();
                         Gson gson = new Gson();
                         JsonElement temp = response.body().get("data");
                         StoolData stoolData[] = gson.fromJson(temp, StoolData[].class);
@@ -137,7 +137,10 @@ public class HomeFragment extends Fragment {
         turnCountText = getTextView(R.id.turnCountText);
         timeCountMinText = getTextView(R.id.timeCountMinText);
         timeCountSecText = getTextView(R.id.timeCountSecText);
-        dangerGaugeText = getTextView(R.id.dangerGaugeText);
+
+        greenPoint = view.findViewById(R.id.greenPoint);
+        yellowPoint = view.findViewById(R.id.yellowPoint);
+        redPoint = view.findViewById(R.id.redPoint);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));

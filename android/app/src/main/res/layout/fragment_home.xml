@@ -147,13 +147,65 @@
             android:text="변비 위험도"
             android:textSize="18dp" />
 
-        <TextView
-            android:id="@+id/dangerGaugeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="상, 중, 하"
-            android:textSize="24dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@drawable/main_notice_circle_red">
+
+                <View
+                    android:id="@+id/redPoint"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/main_notice_circle_black"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/main_notice_circle_yellow">
+
+                <View
+                    android:id="@+id/yellowPoint"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/main_notice_circle_black"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/main_notice_circle_green">
+
+                <View
+                    android:id="@+id/greenPoint"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/main_notice_circle_black"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp" />
+
+            </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
