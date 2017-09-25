@@ -1,5 +1,5 @@
 let mongoose = require("mongoose");
-let connect = require("./Connect");
+let connect = require("./connect");
 let stoolData = require("./StoolData");
 
 let connectModel = connect.connectModel;

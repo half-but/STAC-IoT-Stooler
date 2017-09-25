@@ -1,5 +1,5 @@
 let mongoose = require("mongoose");
-let connect = require("./Connect");
+let connect = require("./connect");
 let sign = require("./Sign");
 
 let connectModel = connect.connectModel;

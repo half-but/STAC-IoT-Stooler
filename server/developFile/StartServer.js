@@ -5,7 +5,7 @@ let cookieParser = require("cookie-parser");
 
 let databaseBoot = require("./DatabaseBoot");
 let sign = require("./Sign");
-let connect = require("./Connect");
+let connect = require("./connect");
 let stoolData = require("./StoolData");
 
 let router = express.Router();
