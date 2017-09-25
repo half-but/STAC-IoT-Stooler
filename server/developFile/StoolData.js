@@ -31,7 +31,13 @@ exports.shotData = (req, res) => {
     let userUUID = cookieStr.split("=")[1];
 
     sign.getID(userUUID, (userID) => {
-        saveData(userID, res.date, res.color, res.time);
+        let data = new stoolDataModel({"id" : userID, "date" : res.date, "color" : res.color, "time" : res.time});
+        
+            data.save(err => {
+                if(err){
+                    throw err;
+                }
+            });
         res.sendStatus(200);
     });
 }
