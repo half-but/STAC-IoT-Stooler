@@ -25,6 +25,17 @@ exports.saveData = (id, date, color, time) =>{
     });
 }
 
+exports.shotData = (req, res) => {
+    let cookieStr = req.headers["set-cookie"][0];
+    cookieStr = cookieStr.split(";")[0];
+    let userUUID = cookieStr.split("=")[1];
+
+    sign.getID(userUUID, (userID) => {
+        saveData(userID, res.date, res.color, res.time);
+        res.sendStatus(200);
+    });
+}
+
 //데이터 보기
 exports.getIssueData = (req, res) => {
     

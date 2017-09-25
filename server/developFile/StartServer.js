@@ -36,6 +36,8 @@ router.route("/getIssueData").get(stoolData.getIssueData);
 //캘린더 데이터
 router.route("/getCalendarData").get(stoolData.getCalendartData);
 
+router.route("/shotData").get(stoolData.shotData);
+
 
 app.use("/",router);
 
