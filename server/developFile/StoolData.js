@@ -70,7 +70,7 @@ exports.getIssueData = (req, res) => {
                         dataArray.push({"date":results[i].date, "color":results[i].color, "time":results[i].time});
                     }
                 }
-                console.log(dataArray);
+                console.log("issueData", dataArray);
                 res.status(200).send(JSON.stringify({"signUpDate" : date, "data" : dataArray}));
             }else{
                 res.sendStatus(204);
