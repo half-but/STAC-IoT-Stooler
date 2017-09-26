@@ -14,8 +14,8 @@ import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,7 +35,7 @@ import static android.content.Context.WINDOW_SERVICE;
 public class SearchAP extends BroadcastReceiver {
 
     private WifiManager wifiManager;
-    String identifier = "StoolerCover";
+    String identifier = "stooler01";
 
     Context context;
 
@@ -59,28 +59,31 @@ public class SearchAP extends BroadcastReceiver {
         }
 
         for(final ScanResult scanResult :  wifiManager.getScanResults()){
-
             final Date date = new Date(System.currentTimeMillis());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd t:mm:ss");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             final String findDate = simpleDateFormat.format(date);
+            Log.d("xxx", "getWifiResult: " + scanResult.toString());
             if(scanResult.SSID.contains(identifier)){
                 RetrofitClass.getInstance().apiInterface.aboutCover("findAP",getCookie(),scanResult.SSID, findDate).enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.code() == 200){
-                            TimerTask timerTask = new TimerTask() {
-                                @Override
-                                public void run() {
-                                    startLockScreen(scanResult.SSID, findDate);
-                                }
-                            };
-                            new Timer().schedule(timerTask, 1000 * 60 * 5);
+                            if(!isLock()){
+                                setLock(true);
+                                TimerTask timerTask = new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        startLockScreen(scanResult.SSID, findDate);
+                                    }
+                                };
+                                new Timer().schedule(timerTask, 1000 * 5);
+                            }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-
+                        t.printStackTrace();
                     }
                 });
             }
@@ -92,51 +95,47 @@ public class SearchAP extends BroadcastReceiver {
     Chronometer chronometer;
 
     private void startLockScreen(final String ssid, final String date){
-        if(!isLock()){
-            setLock(true);
+        windowManager = (WindowManager)context.getSystemService(WINDOW_SERVICE);
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.TYPE_PHONE,
+                WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+                PixelFormat.TRANSLUCENT
+        );
 
-            windowManager = (WindowManager)context.getSystemService(WINDOW_SERVICE);
-            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.MATCH_PARENT,
-                    WindowManager.LayoutParams.MATCH_PARENT,
-                    WindowManager.LayoutParams.TYPE_PHONE,
-                    WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-                    PixelFormat.TRANSLUCENT
-            );
-
-            LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.activity_lock,null);
-            ImageButton unLockButton = (ImageButton) view.findViewById(R.id.unLockButton);
-            unLockButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    RetrofitClass.getInstance().apiInterface.aboutCover("connectCheckForMobile",getCookie(),ssid,date).enqueue(new Callback<Void>() {
-                        @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
-                            if (response.code() == 200){
-                                setLock(false);
-                                windowManager.removeView(view);
-                            }
+        LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = layoutInflater.inflate(R.layout.activity_lock,null);
+        ImageButton unLockButton = (ImageButton) view.findViewById(R.id.unLockButton);
+        unLockButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RetrofitClass.getInstance().apiInterface.aboutCover("connectCheckForMobile",getCookie(),ssid,date).enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.code() == 200){
+                            setLock(false);
+                            windowManager.removeView(view);
                         }
-                        @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
-                            t.printStackTrace();
-                        }
-                    });
-                }
-            });
-            chronometer = (Chronometer) view.findViewById(R.id.countChronometer);
-            //chronometer.setBase();
-            chronometer.start();
-            chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                @Override
-                public void onChronometerTick(Chronometer chronometer) {
-                    Log.d("xxx", chronometer.getText().toString());
-                }
-            });
+                    }
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+            }
+        });
+        chronometer = (Chronometer) view.findViewById(R.id.countChronometer);
+        chronometer.setFormat("05:00");
+        chronometer.start();
+        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                Log.d("xxx", chronometer.getText().toString());
+            }
+        });
 
-            windowManager.addView(view, layoutParams);
-        }
+        windowManager.addView(view, layoutParams);
     }
 
     private String getCookie(){

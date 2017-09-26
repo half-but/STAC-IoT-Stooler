@@ -17,7 +17,7 @@ public class RetrofitClass {
         return ourInstance;
     }
 
-    private String url = "http://192.168.1.47:9024";
+    private String url = "http://52.14.74.219:9024";
 
     public ApiInterface apiInterface;
 

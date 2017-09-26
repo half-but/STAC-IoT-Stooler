@@ -29,6 +29,7 @@ public class BaseActivity extends AppCompatActivity {
     public void saveData(String key, String value){
         SharedPreferences.Editor editor = getPreferences().edit();
         editor.putString(key, value);
+        editor.commit();
     }
 
 }

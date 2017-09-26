@@ -28,6 +28,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import dirtybro.stooler.Action.CheckColor;
 import dirtybro.stooler.Activity.SignActivity;
 import dirtybro.stooler.Connect.RetrofitClass;
 import dirtybro.stooler.Model.StoolData;
@@ -55,30 +56,56 @@ public class HomeFragment extends Fragment {
         return (TextView) view.findViewById(id);
     }
 
-    TextView dateText, turnCountText, timeCountMinText, timeCountSecText, dangerGaugeText;
+    TextView dateText, turnCountText, timeCountMinText, timeCountSecText;
     RecyclerView recyclerView;
     View view, greenPoint, redPoint, yellowPoint;
 
     private void setData(String startDateStr, StoolData[] stoolDatas){
         ArrayList<String> times = new ArrayList<>();
+
         for(StoolData stoolData : stoolDatas){
             times.add(stoolData.getTime());
         }
 
+        setColor(stoolDatas);
+
         try {
-            setAvgTime(times);
+            setAvgTurn(stoolDatas.length);
+            setStateCheck(setAvgTime(times), stoolDatas.length);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
 
-        setAvgTurn(stoolDatas.length);
+    private void setColor(StoolData[] data){
+        int colorCount[] = new int[5];
+        for(int i=0; i<data.length; i++){
+            int count = new CheckColor().GetColorValue(data[i].getColor());
+            if(count >= 6){
+                break;
+            }
+
+            colorCount[count - 1] += 1;
+        }
+        adapter.setColorTime(colorCount);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void setStateCheck(int time, int count){
+        if (time < 5 * 60 && count >= 3){
+            setWaringColor(2);
+        }else if(time < 5 * 60 || count >= 3){
+            setWaringColor(1);
+        }else{
+            setWaringColor(0);
+        }
     }
 
     private void setAvgTurn(int turn){
         turnCountText.setText(turn + "");
     }
 
-    private void setAvgTime(ArrayList<String> times) throws ParseException {
+    private int setAvgTime(ArrayList<String> times) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("mm:ss");
         int sum = 0;
         for(String time : times){
@@ -86,8 +113,11 @@ public class HomeFragment extends Fragment {
             sum += format.parse(time).getSeconds();
         }
         sum /= times.size();
+
         timeCountMinText.setText((sum / 60) + "");
         timeCountSecText.setText((sum % 60) + "");
+
+        return sum;
     }
 
     public void getDataToServer(){
@@ -120,13 +150,24 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void setWaringColor(int count){
+        int idArr[] = new int[]{R.id.redPoint, R.id.yellowPoint, R.id.greenPoint};
+        for(int i=0;i<3;i++){
+            if (count == i){
+                (view.findViewById(idArr[i])).setVisibility(View.VISIBLE);
+            }else{
+                (view.findViewById(idArr[i])).setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home,container,false);
-        Log.e(getClass().getSimpleName(), "INIT");
 
         context = getActivity();
+
         if(cookie.isEmpty()){
             Intent intent = new Intent(getContext(), SignActivity.class);
             startActivity(intent);
@@ -144,10 +185,12 @@ public class HomeFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
-        recyclerView.setAdapter(new HomeListAdapter());
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
+
+    private HomeListAdapter adapter = new HomeListAdapter();
 
     @Override
     public void onStart() {
@@ -217,6 +260,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("대변인의 알림");
                         builder.setMessage(infoStrArr[position]);
                         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
@@ -227,7 +271,6 @@ public class HomeFragment extends Fragment {
                         builder.create().show();
                     }
                 });
-
             }
         }
 

@@ -26,6 +26,7 @@
         <!--<activity android:name=".Activity.SignActivity"/>-->
         <activity android:name=".Activity.MainActivity"/>
         <activity android:name=".Activity.SignActivity"/>
+        <activity android:name=".Activity.AppLockActivity"/>
 
         <receiver android:name=".Action.SearchAP">
             <intent-filter android:priority="9999">

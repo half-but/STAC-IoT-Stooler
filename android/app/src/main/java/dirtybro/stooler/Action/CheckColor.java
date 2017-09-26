@@ -1,21 +1,21 @@
-package com.dirtybro.drstooler;
+package dirtybro.stooler.Action;
 
 import java.util.ArrayList;
 
 import static java.sql.Types.NULL;
 
-public class CkeckColor {
+public class CheckColor {
 
     double[] getColor = new double[3];
 
     double[][] color = { //7가지 색 rgb 값
-            {153, 102, 51}, //갈색
-            {0, 255, 0}, // 초록
             {255, 0, 0}, // 빨강
             {255, 255, 0}, //노랑
+            {0, 255, 0}, // 초록
             {0, 0, 255}, // 파랑
             {255, 255, 255}, //하양
-            {0, 0, 0} // 검정
+            {0, 0, 0}, // 검정
+            {153, 102, 51} //갈색
     };
 
     ArrayList<Double> result = new ArrayList<>();
@@ -28,7 +28,7 @@ public class CkeckColor {
         minimum = getMin();
         locate = getLocate();
 
-        return locate; // 1:갈색 / 2:초록 / 3:빨강 / 4:노랑 / 5:파랑 / 6:하양 / 7:검정
+        return locate;
     }
 
     public void changeHex(String hex) {

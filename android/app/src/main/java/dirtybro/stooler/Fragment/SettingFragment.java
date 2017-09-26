@@ -1,7 +1,5 @@
 package dirtybro.stooler.Fragment;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,8 +11,7 @@ import android.view.ViewGroup;
 
 import dirtybro.stooler.Adapter.SettingAdapter;
 import dirtybro.stooler.R;
-
-import static android.content.Context.MODE_PRIVATE;
+import dirtybro.stooler.Util.BaseActivity;
 
 /**
  * Created by root1 on 2017. 9. 21..
@@ -22,8 +19,9 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class SettingFragment extends Fragment {
 
-    private Context context;
-    public SettingFragment(Context context){
+    private BaseActivity context;
+
+    public SettingFragment(BaseActivity context){
         this.context = context;
     }
 
@@ -33,12 +31,7 @@ public class SettingFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_setting, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
-        recyclerView.setAdapter(new SettingAdapter(getPreferences()));
+        recyclerView.setAdapter(new SettingAdapter(context));
         return view;
-    }
-
-    private SharedPreferences getPreferences(){
-        SharedPreferences pref = context.getSharedPreferences("pref", MODE_PRIVATE);
-        return pref;
     }
 }

@@ -27,4 +27,6 @@ public interface ApiInterface {
     @GET("{aboutCover}")
     Call<Void> aboutCover(@Path("aboutCover")String path, @Header("Set-Cookie")String cookie, @Query("ssid")String ssid, @Query("date")String date);
 
+    @GET("/shotData")
+    Call<Void> shotData(@Header("Set-Cookie")String cookie, @Query("date") String date, @Query("color") String color, @Query("time")String time);
 }

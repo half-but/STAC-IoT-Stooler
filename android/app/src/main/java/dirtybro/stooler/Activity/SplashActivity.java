@@ -32,7 +32,11 @@ public class SplashActivity extends BaseActivity{
                         if(isFirst()){
                             goNextActivity(SignActivity.class);
                         }else{
-                            goNextActivity(MainActivity.class);
+                            if(getPassword()){
+                                goNextActivity(MainActivity.class);
+                            }else{
+                                goNextActivity(AppLockActivity.class);
+                            }
                         }
                     }
 
@@ -47,6 +51,7 @@ public class SplashActivity extends BaseActivity{
 
     }
 
+    private boolean getPassword() {return getPreferences().getString("password","").isEmpty();}
     private boolean isFirst(){
         return getPreferences().getString("cookie","").isEmpty();
     }
