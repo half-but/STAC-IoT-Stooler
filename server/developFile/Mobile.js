@@ -8,7 +8,11 @@ exports.connectCheckForMobile = (req, res) => {
     let date = req.query.date;
     let coverSSID = req.query.ssid;
 
-    sign.getID(req.cookies["Set-Cookie"], (id) => {
+    let cookieStr = req.headers["set-cookie"][0];
+    cookieStr = cookieStr.split(";")[0];
+    let userUUID = cookieStr.split("=")[1];
+
+    sign.getID(userUUID, (id) => {
         console.log("connect check for mobile", id, date, coverSSID);
 
         connectModel.find({"id": id, "ssid" : coverSSID}, (err, result) => {
@@ -31,7 +35,11 @@ exports.findAP = (req, res) => {
     let coverSSID = req.query.ssid;
     let date = req.query.date;
 
-    sign.getID(req.cookies["Set-Cookie"], (id) => {
+    let cookieStr = req.headers["set-cookie"][0];
+    cookieStr = cookieStr.split(";")[0];
+    let userUUID = cookieStr.split("=")[1];
+
+    sign.getID(userUUID, (id) => {
         console.log("find ap", id, coverSSID, date);
         if(id == null){
             res.sendStatus(400);
