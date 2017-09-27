@@ -52,7 +52,7 @@ function dateCheck(req, res, callback) {
 //200, 400
 exports.seatCover = (req, res) => {
     delectOldData();
-    dateCheck(req, res);
+    dateCheck(req, res, cover.seatCover);
 }
 
 //para : ssid, date

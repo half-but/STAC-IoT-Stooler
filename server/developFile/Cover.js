@@ -4,7 +4,7 @@ let stoolData = require("./StoolData");
 
 let connectModel = connect.connectModel;
 
-function seatCover(req, res) {
+exports.seatCover = (req, res) => {
     let ssid = req.query.ssid;
     let date = req.query.date;
 
@@ -24,7 +24,7 @@ function seatCover(req, res) {
     });
 }
 
-function saveData(req, res) {
+exports.saveData = (req, res) => {
     let ssid = req.query.ssid;
     let date = req.query.date;
     let color = req.query.color;
@@ -68,7 +68,7 @@ function saveData(req, res) {
     });
 }
 
-function connectCheckForCover(req, res) {
+exports.connectCheckForCover = (req, res) => {
     let ssid = req.query.ssid;
     let date = req.query.date;
 
