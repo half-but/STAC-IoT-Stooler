@@ -4,6 +4,7 @@ let cover = require("./Cover");
 let mobile = require("./Mobile");
 
 let connectModel;
+exports.connectModel = connectModel;
 
 exports.createModel = () => {
     let ConnectUserSchema = mongoose.Schema({
