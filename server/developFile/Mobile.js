@@ -25,11 +25,11 @@ exports.connectCheckForMobile = (req, res) => {
                 throw err;
             }
             if(result.length > 0){
-                console.log("connect check success");
-                res.sendStatus(200);
-            }else{
-                console.log("connect check fail");
+                console.log("connect check connected");
                 res.sendStatus(400);
+            }else{
+                console.log("connect check disconnect");
+                res.sendStatus(200);
             }
         });
     });
