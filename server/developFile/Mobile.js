@@ -67,7 +67,7 @@ exports.findAP = (req, res) => {
 
 let saveUserData = (results, date, res, id) => {
     for (let i = 0; i < results.length; i++) {
-        if (compareDate(date, result[i].date)) {
+        if (compareDate(date, results[i].date)) {
             if (results[i].time) {
                 console.log("data save", userID, results[i].date, results[i].color, results[i].time);
                 stoolData.saveData(userID, results[i].date, results[i].color, results[i].time, res);
