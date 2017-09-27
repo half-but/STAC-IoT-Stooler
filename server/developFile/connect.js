@@ -16,6 +16,9 @@ exports.createModel = () => {
     });
 
     connectModel = mongoose.model("connectModel", ConnectUserSchema);
+
+    cover.setConnectModel(connectModel);
+    mobile.setConnectModel(connectModel);
 }
 
 function delectOldData() {

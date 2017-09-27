@@ -2,7 +2,11 @@ let mongoose = require("mongoose");
 let connect = require("./connect");
 let sign = require("./Sign");
 
-let connectModel = connect.connectModel;
+let connectModel;
+
+exports.setConnectModel = (model) => {
+    connectModel = model;
+}
 
 exports.connectCheckForMobile = (req, res) => {
     let date = req.query.date;

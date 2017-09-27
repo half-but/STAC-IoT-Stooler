@@ -2,7 +2,11 @@ let mongoose = require("mongoose");
 let connect = require("./connect");
 let stoolData = require("./StoolData");
 
-let connectModel = connect.connectModel;
+let connectModel;
+
+exports.setConnectModel = (model) => {
+    connectModel = model;
+}
 
 exports.seatCover = (req, res) => {
     let ssid = req.query.ssid;
