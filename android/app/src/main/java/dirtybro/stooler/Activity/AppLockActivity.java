@@ -20,7 +20,7 @@ public class AppLockActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock_app);
 
-        if(Boolean.parseBoolean(getPreferences().getString("isLock", false + ""))){
+        if(!Boolean.parseBoolean(getPreferences().getString("isLock", false + ""))){
             goNextActivity(MainActivity.class);
         }
 
@@ -36,6 +36,8 @@ public class AppLockActivity extends BaseActivity {
                 String currentPw = getPreferences().getString("password", "");
                 if(currentPw.equals(passwordEdit.getText().toString())){
                     goNextActivity(MainActivity.class);
+                }else{
+                    showToast("다시 입력하세요");
                 }
             }
         });

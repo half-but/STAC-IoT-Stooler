@@ -33,7 +33,7 @@ public class SplashActivity extends BaseActivity{
                             goNextActivity(SignActivity.class);
                         }else{
                             if(getPassword()){
-                                goNextActivity(MainActivity.class);
+                                goNextActivity(AppLockActivity.class);
                             }else{
                                 goNextActivity(AppLockActivity.class);
                             }

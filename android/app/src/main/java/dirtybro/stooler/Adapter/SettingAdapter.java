@@ -3,6 +3,7 @@ package dirtybro.stooler.Adapter;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,11 @@ public class SettingAdapter extends RecyclerView.Adapter {
             });
 
             settingViewHolderWithSwitch.titleText.setText(title[position]);
+
+            String checked = activity.getPreferences().getString("isLock", "false");
+            settingViewHolderWithSwitch.settingSwitch.setChecked(Boolean.parseBoolean(checked));
         }else{
+
             SettingViewHolder settingViewHolder = (SettingViewHolder)holder;
             if(position == 0){
 

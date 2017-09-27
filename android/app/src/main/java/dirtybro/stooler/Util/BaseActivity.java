@@ -3,6 +3,7 @@ package dirtybro.stooler.Util;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -28,8 +29,12 @@ public class BaseActivity extends AppCompatActivity {
 
     public void saveData(String key, String value){
         SharedPreferences.Editor editor = getPreferences().edit();
+        editor.remove(key);
         editor.putString(key, value);
         editor.commit();
+
+        Log.d("data = ", key + " : " + value);
+        Log.d("save data = ", getPreferences().getString(key, "fail"));
     }
 
 }
