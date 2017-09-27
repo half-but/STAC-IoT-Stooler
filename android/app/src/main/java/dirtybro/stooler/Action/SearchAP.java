@@ -35,7 +35,7 @@ import static android.content.Context.WINDOW_SERVICE;
 public class SearchAP extends BroadcastReceiver {
 
     private WifiManager wifiManager;
-    String identifier = "stooler01";
+    String identifier = "AndroidWifi";
 
     Context context;
 
@@ -58,36 +58,59 @@ public class SearchAP extends BroadcastReceiver {
             wifiManager.setWifiEnabled(true);
         }
 
-        for(final ScanResult scanResult :  wifiManager.getScanResults()){
-            final Date date = new Date(System.currentTimeMillis());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            final String findDate = simpleDateFormat.format(date);
-            Log.d("xxx", "getWifiResult: " + scanResult.toString());
-            if(scanResult.SSID.contains(identifier)){
-                RetrofitClass.getInstance().apiInterface.aboutCover("findAP",getCookie(),scanResult.SSID, findDate).enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if(response.code() == 200){
-                            if(!isLock()){
-                                setLock(true);
-                                TimerTask timerTask = new TimerTask() {
-                                    @Override
-                                    public void run() {
-                                        startLockScreen(scanResult.SSID, findDate);
-                                    }
-                                };
-                                new Timer().schedule(timerTask, 1000 * 5);
-                            }
-                        }
-                    }
+        if(getDelay()){
+            return;
+        }
 
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
+        for(final ScanResult scanResult :  wifiManager.getScanResults()){
+            Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            String findDate = simpleDateFormat.format(date);
+            if(scanResult.SSID.contains(identifier)){
+                sendData(scanResult.SSID, findDate);
             }
         }
+
+        setDelay();
+    }
+
+    private void sendData(final String ssid, final String date){
+        RetrofitClass.getInstance().apiInterface.aboutCover("findAP",getCookie(), ssid, date).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    setOn(true);
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            startLockScreen(ssid, date);
+                        }
+                    }, 1000 * 10);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void setDelay(){
+        final SharedPreferences.Editor editor = getPreferences().edit();
+        editor.remove("delay");
+        editor.putBoolean("delay", true);
+        editor.commit();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                editor.remove("delay");
+                editor.putBoolean("delay", false);
+                editor.commit();
+            }
+        };
+
+        new Timer().schedule(timerTask, 1000 * 5);
     }
 
     WindowManager windowManager;
@@ -95,7 +118,9 @@ public class SearchAP extends BroadcastReceiver {
     Chronometer chronometer;
 
     private void startLockScreen(final String ssid, final String date){
+
         windowManager = (WindowManager)context.getSystemService(WINDOW_SERVICE);
+
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT,
@@ -107,6 +132,7 @@ public class SearchAP extends BroadcastReceiver {
         LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = layoutInflater.inflate(R.layout.activity_lock,null);
         ImageButton unLockButton = (ImageButton) view.findViewById(R.id.unLockButton);
+
         unLockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +140,7 @@ public class SearchAP extends BroadcastReceiver {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.code() == 200){
-                            setLock(false);
+                            setOn(false);
                             windowManager.removeView(view);
                         }
                     }
@@ -125,6 +151,7 @@ public class SearchAP extends BroadcastReceiver {
                 });
             }
         });
+
         chronometer = (Chronometer) view.findViewById(R.id.countChronometer);
         chronometer.setFormat("05:00");
         chronometer.start();
@@ -142,15 +169,15 @@ public class SearchAP extends BroadcastReceiver {
         return getPreferences().getString("cookie","");
     }
 
-    private void setLock(boolean isLock){
+    private void setOn(boolean isOn){
         SharedPreferences.Editor editor = getPreferences().edit();
-        editor.remove("isLock");
-        editor.putBoolean("isLock", isLock);
+        editor.remove("delay");
+        editor.putBoolean("delay", isOn);
         editor.commit();
     }
 
-    private boolean isLock(){
-        return getPreferences().getBoolean("isLock", false);
+    private boolean getDelay(){
+        return getPreferences().getBoolean("delay", false);
     }
 
 

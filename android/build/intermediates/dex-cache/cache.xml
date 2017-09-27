@@ -16,17 +16,8 @@
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
-        sha1="e0613b1790f4235d3725edbbfd5a369429d42137">
+        sha1="6115f750e507913bbd6a21fdc533af36ab9c83a8">
         <dex dex="/Users/root1/Desktop/대변인/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_87c54e9fa667df4b15ce5248297d538817126235/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/root1/.android/build-cache/96f2f04f71d1b40cb6ac819cb2564e27d69ac2ff/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="1eb333af088ce95853394fc07cb8f191e4f1f894">
-        <dex dex="/Users/root1/Desktop/대변인/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_614090fe67bafac8ea321357737a9fed4f80b106/classes.dex" />
     </item>
 
 </items>

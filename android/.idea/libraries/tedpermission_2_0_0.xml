@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.android/build-cache/96f2f04f71d1b40cb6ac819cb2564e27d69ac2ff/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/gun0912.ted/tedpermission/2.0.0/82bcc7c1417528cab51836a76d9e989a284cc2d9/tedpermission-2.0.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
