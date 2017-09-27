@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="/Users/root1/Desktop/대변인/android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="/Users/root1/Desktop/STAC-IoT-Stooler/android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="0fedb4f7c5d5143375356b393d7f50ac9603707c">
+        <dex dex="/Users/root1/Desktop/STAC-IoT-Stooler/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_b9ee00cce20dc38ef737826c756776efab75167d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/root1/Desktop/STAC-IoT-Stooler/android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/Users/root1/Desktop/대변인/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_1e139c44baaef547ed2c9ffd68d1f0884a1e88aa/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/root1/Desktop/대변인/android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="6115f750e507913bbd6a21fdc533af36ab9c83a8">
-        <dex dex="/Users/root1/Desktop/대변인/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_87c54e9fa667df4b15ce5248297d538817126235/classes.dex" />
+        <dex dex="/Users/root1/Desktop/STAC-IoT-Stooler/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_aede4684b44596aceb9b0a53fff9c7377c8c4512/classes.dex" />
     </item>
 
 </items>

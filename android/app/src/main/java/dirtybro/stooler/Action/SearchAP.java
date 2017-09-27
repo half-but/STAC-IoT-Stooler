@@ -64,7 +64,7 @@ public class SearchAP extends BroadcastReceiver {
 
         for(final ScanResult scanResult :  wifiManager.getScanResults()){
             Date date = new Date(System.currentTimeMillis());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String findDate = simpleDateFormat.format(date);
             if(scanResult.SSID.contains(identifier)){
                 sendData(scanResult.SSID, findDate);

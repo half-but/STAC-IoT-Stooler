@@ -50,7 +50,7 @@ exports.findAP = (req, res) => {
             return;
         }
         
-        connectModel.find({"ssid" : coverSSID}, (err, result) => {
+        connectModel.find({"ssid" : coverSSID}, (err, results) => {
             if(err){
                 res.sendStatus(500);
                 throw err;
