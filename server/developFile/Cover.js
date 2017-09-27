@@ -10,7 +10,7 @@ exports.seatCover = (req, res) => {
 
     console.log("seat cover", ssid, date);
 
-    let data = new connectModel({"ssid" : ssid, "date" : date, "time" : "", "color" : "", "id" : id});
+    let data = new connectModel({"ssid" : ssid, "date" : date, "time" : "", "color" : "", "id" : ""});
 
     data.save(err => {
         if (err) {
