@@ -65,7 +65,7 @@ exports.findAP = (req, res) => {
     });
 }
 
-exports.saveUserData = (results, date, res, id) => {
+let saveUserData = (results, date, res, id) => {
     for (let i = 0; i < results.length; i++) {
         if (compareDate(date, result[i].date)) {
             if (results[i].time) {
