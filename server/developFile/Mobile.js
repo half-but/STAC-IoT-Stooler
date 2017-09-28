@@ -19,14 +19,14 @@ exports.connectCheckForMobile = (req, res) => {
     sign.getID(userUUID, (id) => {
         console.log("connect check for mobile", id, date, coverSSID);
 
-        connectModel.find({"id": id, "ssid" : coverSSID}, (err, result) => {
+        connectModel.find({"id": id, "ssid" : coverSSID, "date" : date}, (err, result) => {
             if(err){
                 res.sendStatus(500);
                 throw err;
             }
 
             console.log(result);
-            
+
             if(result.length > 0){
                 console.log("connect check connected");
                 res.sendStatus(400);

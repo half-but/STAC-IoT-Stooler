@@ -47,9 +47,9 @@ exports.saveData = (req, res) => {
         if (results.length > 0){
 
             if (results[0].id) {
-                console.log("save data", results[0].id, date, color, time, res);
+                console.log("save data", results[0].id, date, color, time);
                 stoolData.saveData(results[0].id, date, color, time, res);
-                connectModel.remove({ "ssid": ssid, "date": date }, err => {
+                connectModel.remove({"ssid": ssid, "date": date }, err => {
                     if (err) {
                         throw err;
                     }
