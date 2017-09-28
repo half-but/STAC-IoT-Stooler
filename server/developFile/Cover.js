@@ -36,13 +36,13 @@ exports.saveData = (req, res) => {
 
     console.log("save data", ssid, date, color, time);
 
-    connectModel.find({"ssid" : ssid, "date" : date}, (err, result) => {
+    connectModel.find({"ssid" : ssid, "date" : date}, (err, results) => {
         if(err){
             res.sendStatus(500);
             throw err;
         }
 
-        console.log("find for save result", result);
+        console.log("find for save result", results);
 
         if (result.length > 0){
 
