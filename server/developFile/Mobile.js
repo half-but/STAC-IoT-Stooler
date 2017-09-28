@@ -24,6 +24,9 @@ exports.connectCheckForMobile = (req, res) => {
                 res.sendStatus(500);
                 throw err;
             }
+
+            console.log(result);
+            
             if(result.length > 0){
                 console.log("connect check connected");
                 res.sendStatus(400);
