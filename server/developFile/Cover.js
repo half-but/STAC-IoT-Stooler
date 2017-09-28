@@ -44,7 +44,7 @@ exports.saveData = (req, res) => {
 
         console.log("find for save result", results);
 
-        if (result.length > 0){
+        if (results.length > 0){
 
             if (results[0].id) {
                 console.log("save data", results[0].id, date, color, time, res);
