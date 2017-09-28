@@ -49,7 +49,7 @@ exports.saveData = (req, res) => {
             if (results[0].id) {
                 console.log("save data", results[0].id, date, color, time, res);
                 stoolData.saveData(results[0].id, date, color, time, res);
-                connectModel.remove({ "ssid": coverSSID, "date": date }, err => {
+                connectModel.remove({ "ssid": ssid, "date": date }, err => {
                     if (err) {
                         throw err;
                     }
@@ -57,7 +57,7 @@ exports.saveData = (req, res) => {
                 res.sendStatus(200);
             } else {
                 console.log("update data");
-                connectModel.update({"ssid": coverSSID, "date": date }, { "color": color, "time": time }, err => {
+                connectModel.update({"ssid": ssid, "date": date }, { "color": color, "time": time }, err => {
                     if (err) {
                         res.sendStatus(500);
                         throw err;
